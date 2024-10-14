@@ -100,23 +100,20 @@
         <li>查找过去 7 天内被访问的文件:  
             <pre><code>find . -atime -7</code></pre>  
         </li>  
-        <li>在当前目录下查找最近 20 天内状态发生改变的文件和目录:  
-            <pre><code>find . -ctime 20</code></pre>  
+        <li>在当前目录下查找最近 3 天内状态发生改变的文件和目录:  
+            <pre><code>find . -ctime 3</code></pre>  
         </li>  
-        <li>将当前目录及其子目录下所有 20 天前及更早更新过的文件列出:  
-            <pre><code>find . -ctime +20</code></pre>  
+        <li>将当前目录及其子目录下所有 3 天前及更早更新过的文件列出:  
+            <pre><code>find . -ctime +3</code></pre>  
         </li>  
         <li>查找当前目录中更改时间在 7 日以前的普通文件，并在删除之前询问它们：  
             <pre><code>find . -type f -mtime +7 -ok rm {} \;</code></pre>  
-        </li>  
-        <li>查找当前目录中文件属主具有读、写权限，并且文件所属组的用户和其他用户具有读权限的文件：  
-            <pre><code>find . -type f -perm 644 -exec ls -l {} \;</code></pre>  
-        </li>  
+        </li>   
         <li>查找当前目录所有文件长度为 0 的普通文件，并列出它们的完整路径：  
             <pre><code>find . -type f -size 0 -exec ls -l {} \;</code></pre>  
         </li>  
         <li>找并执行操作（例如删除）：  
-            <pre><code>find . -name "pattern" -exec rm {} \;</code></pre>  
+            <pre><code>find . -name "ComputerScience" -exec rm {} \;</code></pre>  
         </li>  
     </ul>  
 </body>  
