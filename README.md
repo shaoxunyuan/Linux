@@ -38,7 +38,12 @@ Linux的安装步骤
 
 ## Linux常用命令
 
-![图片](figures/command.png)  
+<div style="display: flex;">  
+
+<img src="figures/LinuxCommand1.png" alt="图片1" style="width: 80px; margin-right: 10px;" />  
+<img src="figures/LinuxCommand2.png" alt="图片2" style="width: 80px;" />  
+
+</div>  
 
 ## Shell编程
 
