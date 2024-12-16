@@ -4,13 +4,13 @@
 
 ## 目录  
 
-1. [Linux的介绍和安装](#Linux的介绍和安装)
-2. [Linux常用命令](#Linux常用命令)
-3. [Shell编程](#Shell编程)
+1. [Linux的介绍和安装](#1.Linux的介绍和安装)
+2. [Linux常用命令](#2.Linux常用命令)
+3. [Shell编程](#3.Shell编程)
 
 
 
-## Linux的介绍和安装
+## 1.Linux的介绍和安装
 
 Linux由林纳斯·托瓦兹于1991年开发，旨在创建一个开放源代码的操作系统。从最初的单用户系统发展为支持多种硬件架构的强大平台，广泛应用于服务器、桌面和嵌入式设备。  
 
@@ -42,7 +42,7 @@ Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个�
 
 
 
-## Linux常用命令
+## 2.Linux常用命令
 
 <div style="display: flex; justify-content: center;">  
 
@@ -57,7 +57,8 @@ Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个�
   
 </div>  
 
-## Shell编程
+## 3.Shell编程
+
 
 
 社区与支持  
