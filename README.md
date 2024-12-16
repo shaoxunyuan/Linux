@@ -38,13 +38,17 @@ Linux的安装步骤
 
 ## Linux常用命令
 
-<div style="display: flex;">  
+<div style="display: flex; justify-content: center;">  
 
-<img src="figures/command.png" alt="图片" style="width:800px;" />  
+  <img src="figures/command.png" alt="图片" style="width: 800px;" />  
 
-<img src="figures/LinuxCommand1.png" alt="图片1" style="width: 400px; margin-right: 10px;" />  
-<img src="figures/LinuxCommand2.png" alt="图片2" style="width: 400px;" />  
+</div>  
 
+<div style="display: flex; justify-content: center;">  
+  
+  <img src="figures/LinuxCommand1.png" alt="图片1" style="width: 400px; margin-right: 10px;" />  
+  <img src="figures/LinuxCommand2.png" alt="图片2" style="width: 400px;" />  
+  
 </div>  
 
 ## Shell编程
