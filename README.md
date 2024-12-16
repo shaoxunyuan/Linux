@@ -5,7 +5,8 @@
 ## 目录  
 
 1. [Linux的介绍和安装](#Linux的介绍和安装)
-   
+2. [Linux常用命令](#Linux常用命令)
+3. [Shell编程](#Shell编程)
 
 
 
