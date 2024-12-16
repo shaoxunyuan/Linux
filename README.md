@@ -38,7 +38,7 @@ Linux的安装步骤
 
 ## Linux常用命令
 
-img src="figures/command.png" alt="图片" style="width:80px;" />
+![图片](figures/command.png)  
 
 ## Shell编程
 
