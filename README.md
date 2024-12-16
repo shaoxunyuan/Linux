@@ -40,6 +40,8 @@ Linux的安装步骤
 
 <div style="display: flex;">  
 
+<img src="figures/command.png" alt="图片" style="width:80px;" />  
+
 <img src="figures/LinuxCommand1.png" alt="图片1" style="width: 400px; margin-right: 10px;" />  
 <img src="figures/LinuxCommand2.png" alt="图片2" style="width: 400px;" />  
 
