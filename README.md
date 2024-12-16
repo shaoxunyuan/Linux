@@ -54,7 +54,7 @@
 
 <div style="display: flex; justify-content: center;">  
   
-  <img src="figures/command.png" alt="图片" style="width: 800px;" />  
+  <img src="figures/LinuxCommand.png" alt="图片" style="width: 800px;" />  
   
 </div>  
 
