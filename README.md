@@ -20,18 +20,18 @@ Linux由林纳斯·托瓦兹于1991年开发，旨在创建一个开放源代码
 
 - **Linux的内核版和发行版**  
 
-##### 内核版  
+        ##### 内核版  
 
-Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个版本不断更新，以增强功能和安全性。  
+&nbsp;&nbsp;&nbsp;&nbsp;Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个版本不断更新，以增强功能和安全性。  
 
-##### 发行版  
+        ##### 发行版  
 
-发行版包括内核及其相关软件，常见版本有：  
+&nbsp;&nbsp;&nbsp;&nbsp;发行版包括内核及其相关软件，常见版本有：  
 
-**Ubuntu**：友好，适合初学者。  
-**Fedora**：追求最新技术，适合开发者。  
-**Debian**：稳定，适合生产环境。  
- **Arch Linux**：高度自定义，适合高级用户。  
+&nbsp;&nbsp;&nbsp;&nbsp;**Ubuntu**：友好，适合初学者。  
+&nbsp;&nbsp;&nbsp;&nbsp;**Fedora**：追求最新技术，适合开发者。  
+&nbsp;&nbsp;&nbsp;&nbsp;**Debian**：稳定，适合生产环境。  
+&nbsp;&nbsp;&nbsp;&nbsp;**Arch Linux**：高度自定义，适合高级用户。  
 
 - **Linux的安装步骤**  
 
