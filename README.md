@@ -1,6 +1,6 @@
 南京中医药大学 人工智能与信息技术学院
 
-# Linux <img src="figures/linux.logo.png" alt="图标" style="width:20px;" />
+# Linux <img src="figures/linux.logo.png" alt="图标" style="width:30px;" />
 
 ## 目录  
 
