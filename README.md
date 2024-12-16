@@ -20,11 +20,11 @@ Linux由林纳斯·托瓦兹于1991年开发，旨在创建一个开放源代码
 
 - **Linux的内核版和发行版**  
 
-        ##### 内核版  
+&nbsp;&nbsp;&nbsp;&nbsp;内核版  
 
 &nbsp;&nbsp;&nbsp;&nbsp;Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个版本不断更新，以增强功能和安全性。  
 
-        ##### 发行版  
+&nbsp;&nbsp;&nbsp;&nbsp;发行版  
 
 &nbsp;&nbsp;&nbsp;&nbsp;发行版包括内核及其相关软件，常见版本有：  
 
