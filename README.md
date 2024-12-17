@@ -22,11 +22,27 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;这种软件通常通过社区参与不断改进，促进了技术的创新与共享。  
 
+- **Linux的开发模式**
+
+&nbsp;&nbsp;&nbsp;&nbsp;**开源（Open Source）**：Linux内核及其大部分组件的源代码都是开放的，任何人都可以查看、修改和分发。开源理念鼓励社区的参与和创新。
+
+&nbsp;&nbsp;&nbsp;&nbsp;**社区驱动（Community-Driven）**：Linux的开发和维护依赖于一个全球范围的开发者社区。这个社区包括个人开发者、企业贡献者和各种组织，大家通过邮件列表、论坛和其他协作平台共同合作。
+
+&nbsp;&nbsp;&nbsp;&nbsp;**模块化（Modularity）**：Linux系统采用模块化设计，内核由多个模块组成，这使得功能可以以模块的形式加载和卸载，便于管理和优化系统性能。
+
+&nbsp;&nbsp;&nbsp;&nbsp;**版本控制（Version Control）**：Linux的开发通常使用Git等版本控制系统，这使得多个人可以在同一项目上进行协作，便于管理代码的变化和更新。
+
+&nbsp;&nbsp;&nbsp;&nbsp;**持续集成和持续发布（CI/CD）**：Linux的发展采用了持续集成和持续发布的模式，各个版本不断更新，以增强功能、修复漏洞和提高性能。
+
+&nbsp;&nbsp;&nbsp;&nbsp;**遵循标准（Standards Compliance）**：Linux遵循POSIX等标准，确保兼容性和可移植性，使得Linux应用程序能够在不同的系统上运行。
+
 - **Linux的内核版和发行版**  
 
 &nbsp;&nbsp;&nbsp;&nbsp;**内核版**  
 
 &nbsp;&nbsp;&nbsp;&nbsp;Linux内核是操作系统的核心，版本以“X.Y.Z”格式命名。各个版本不断更新，以增强功能和安全性。  
+
+&nbsp;&nbsp;&nbsp;&nbsp;Linux内核由芬兰计算机科学家林纳斯·托瓦兹（Linus Torvalds）于1991年首次发布。最初版本为0.01，作为替代Minix操作系统的个人项目。
 
 &nbsp;&nbsp;&nbsp;&nbsp;**发行版**  
 
