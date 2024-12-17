@@ -16,7 +16,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;从最初的单用户系统发展为支持多种硬件架构的强大平台，广泛应用于服务器、桌面和嵌入式设备。  
 
-- **开源软件和GNU协议的定义和意义**
+### 开源软件和GNU协议的定义和意义
 
 &nbsp;&nbsp;&nbsp;&nbsp;开源软件是指源代码公开，允许用户自由使用、修改和分发的软件。
 
@@ -26,7 +26,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;GNU项目由理查德·斯托曼（Richard Stallman）于1983年发起。与GNU相关的最重要的许可证是GNU通用公共许可证（GPL）。
 
-- **Linux的开发模式**
+### Linux的开发模式
 
 &nbsp;&nbsp;&nbsp;&nbsp;**开源（Open Source）**：Linux内核及其大部分组件的源代码都是开放的，任何人都可以查看、修改和分发。开源理念鼓励社区的参与和创新。
 
@@ -41,7 +41,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;**遵循标准（Standards Compliance）**：Linux遵循POSIX等标准，确保兼容性和可移植性，使得Linux应用程序能够在不同的系统上运行。
 
 
-- **Linux的内核版和发行版**  
+### Linux的内核版和发行版
 
 &nbsp;&nbsp;&nbsp;&nbsp;**内核版**  
 
@@ -58,7 +58,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;**Debian**：稳定，适合生产环境。  
 &nbsp;&nbsp;&nbsp;&nbsp;**Arch Linux**：高度自定义，适合高级用户。  
 
-- **Linux的安装步骤**  
+### Linux的安装步骤
 
 1. 选择合适的发行版并下载ISO文件。  
 2. 下载合适的虚拟机软件。  
