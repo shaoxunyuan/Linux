@@ -16,11 +16,15 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;从最初的单用户系统发展为支持多种硬件架构的强大平台，广泛应用于服务器、桌面和嵌入式设备。  
 
-- **开源软件的定义和意义**
+- **开源软件和GNU协议的定义和意义**
 
 &nbsp;&nbsp;&nbsp;&nbsp;开源软件是指源代码公开，允许用户自由使用、修改和分发的软件。
 
 &nbsp;&nbsp;&nbsp;&nbsp;这种软件通常通过社区参与不断改进，促进了技术的创新与共享。  
+
+&nbsp;&nbsp;&nbsp;&nbsp;GNU（GNU's Not Unix!）是一个自由软件项目，旨在创建一个完全自由的操作系统。
+
+&nbsp;&nbsp;&nbsp;&nbsp;GNU项目由理查德·斯托曼（Richard Stallman）于1983年发起。与GNU相关的最重要的许可证是GNU通用公共许可证（GPL）。
 
 - **Linux的开发模式**
 
