@@ -54,8 +54,11 @@
 &nbsp;&nbsp;&nbsp;&nbsp;发行版包括内核及其相关软件，常见版本有：  
 
 &nbsp;&nbsp;&nbsp;&nbsp;**Ubuntu**：友好，适合初学者。  
+
 &nbsp;&nbsp;&nbsp;&nbsp;**Fedora**：追求最新技术，适合开发者。  
+
 &nbsp;&nbsp;&nbsp;&nbsp;**Debian**：稳定，适合生产环境。  
+
 &nbsp;&nbsp;&nbsp;&nbsp;**Arch Linux**：高度自定义，适合高级用户。  
 
 &nbsp;&nbsp;&nbsp;&nbsp;`lsb_release -a` 是一个在 Linux 系统中用于显示 Linux 发行版信息的命令。
