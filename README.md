@@ -58,6 +58,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;**Debian**：稳定，适合生产环境。  
 &nbsp;&nbsp;&nbsp;&nbsp;**Arch Linux**：高度自定义，适合高级用户。  
 
+&nbsp;&nbsp;&nbsp;&nbsp;`lsb_release -a` 是一个在 Linux 系统中用于显示 Linux 发行版信息的命令。
+
 ### Linux的安装步骤
 
 1. 选择合适的发行版并下载ISO文件。  
