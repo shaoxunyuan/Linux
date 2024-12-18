@@ -60,6 +60,13 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;`lsb_release -a` 是一个在 Linux 系统中用于显示 Linux 发行版信息的命令。
 
+&nbsp;&nbsp;&nbsp;&nbsp;运行 `lsb_release -a` 命令后，将输出以下信息：
+
+&nbsp;&nbsp;&nbsp;&nbsp;**Distributor ID**: 显示发行版的名称，例如 Ubuntu、Debian、CentOS 等。
+&nbsp;&nbsp;&nbsp;&nbsp;**Description**: 显示详细的发行版描述信息，通常包括版本号和发行版名称。
+&nbsp;&nbsp;&nbsp;&nbsp;**Release**: 显示具体的版本号，例如 20.04、7.9 等。
+&nbsp;&nbsp;&nbsp;&nbsp;**Codename**: 显示发行版的代号，例如 Ubuntu 的 LTS 版本可能是 "Focal Fossa" (20.04) 或 "Bionic Beaver" (18.04)。
+
 ### Linux的安装步骤
 
 1. 选择合适的发行版并下载ISO文件。  
