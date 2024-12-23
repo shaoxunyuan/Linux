@@ -81,6 +81,15 @@
 3. 创建新的虚拟机并加载ISO文件。  
 4. 按照安装向导完成安装过程。 
 
+## Linux目录结构
+
+<div style="display: flex; justify-content: center;">  
+  
+  <img src="figures/LinuxContent.jpg" alt="图片" style="width: 800px;" />  
+  
+</div>  
+
+## Shell编程
 
 ## Linux常用命令
 
