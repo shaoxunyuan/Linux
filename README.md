@@ -175,19 +175,451 @@ https://www.runoob.com/linux/linux-system-contents.html
   ```bash  
   grep '正则表达式' 文件名
 
-## Linux网络安全
+# Linux网络安全核心配置指南
+
+## Linux 网络安全
+
+Linux 系统作为服务器领域的主流操作系统，其网络安全防护需从基础配置、访问控制、协议优化等多层面构建防线。以下从密码策略、防火墙、安全协议与服务三个核心模块，详细说明配置方案与实践要点。
 
 ### 密码策略强化
 
+密码作为系统访问的第一道防线，其复杂度与时效性直接影响系统安全。通过配置系统参数，可强制用户使用高安全性密码，并定期更新。
+
 #### 设置复杂密码策略：
 
-要求用户使用包含字母（大小写）、数字和特殊字符的长密码。可以通过修改/etc/login.defs文件来设置密码长度和复杂度要求。例如，设置最小密码长度为 8 位。
+通过修改系统配置文件与安装密码复杂度检查工具，强制用户密码满足 “大小写字母 + 数字 + 特殊字符” 的组合要求，同时限制弱密码使用。
+
+
+
+1. **修改**`/etc/login.defs`**基础配置**
+   该文件控制系统登录相关的基础参数，可设置密码最小长度、密码过期警告时间等：
+   
+   
+
+```
+sudo vim /etc/login.defs
+```
+
+关键配置参数修改如下：
+
+
+
+* `PASS_MIN_LEN 8`：设置密码最小长度为 8 位（建议生产环境设为 12 位以上）；
+
+* `PASS_WARN_AGE 7`：密码过期前 7 天向用户发送警告；
+
+* `PASS_MAX_DAYS 90`：密码最长有效天数（与后续`/etc/shadow`配置联动）。
+1. **安装**`pam_cracklib`**强化复杂度检查**
+   仅通过`login.defs`无法实现字符类型限制，需借助 PAM（可插拔认证模块）的`pam_cracklib.so`组件：
+   
+   
+
+```
+\# 安装依赖（部分系统默认已安装）
+
+sudo yum install cracklib cracklib-devel  # CentOS/RHEL
+
+sudo apt install libpam-cracklib          # Ubuntu/Debian
+```
+
+修改 PAM 密码配置文件`/etc/pam.d/system-auth`（CentOS）或`/etc/pam.d/common-password`（Ubuntu），在`password required ``pam_cracklib.so`行后添加参数：
+
+
+
+```
+password required pam\_cracklib.so minlen=12 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1 reject\_username
+```
+
+参数说明：
+
+
+
+* `minlen=12`：密码最小长度 12 位（实际长度 = 最小长度 - 字符类型奖励，需确保实际长度达标）；
+
+* `ucredit=-1`：至少包含 1 个大写字母（`-1`表示 “至少 1 个”，`+1`表示 “最多 1 个”）；
+
+* `lcredit=-1`：至少包含 1 个小写字母；
+
+* `dcredit=-1`：至少包含 1 个数字；
+
+* `ocredit=-1`：至少包含 1 个特殊字符（如！@#\$%^&\*）；
+
+* `reject_username`：禁止密码包含用户名（如用户`root`不能使用`root@123`这类密码）。
+1. **禁止使用弱密码字典**
+   结合`pam_pwcheck`或`fail2ban`，可导入弱密码字典（如`/usr/share/dict/weakpass`），拒绝用户设置常见弱密码（如`123456`、`password`等）。
 
 #### 密码过期策略：
 
-启用密码定期过期策略，强制用户定期更改密码。在/etc/shadow文件中可以配置密码过期时间。例如，设置密码每 90 天过期一次，这样可以降低密码被暴力破解后长期有效的风险。
+通过`/etc/shadow`文件与`chage`命令，配置密码过期时间、历史密码禁止复用等规则，防止密码长期未更新导致泄露风险。
+
+
+
+1. `/etc/shadow`**文件字段说明**
+   该文件存储用户密码哈希与密码策略信息，每行格式如下（以`root`用户为例）：
+   
+   
+
+```
+root:\$6\$xxxxxxxx\$xxxxxxxx:19500:7:90:15:99999:
+```
+
+关键字段（从左数第 3-7 位）：
+
+
+
+* 第 3 位：上次修改密码的时间（从 1970-01-01 起的天数）；
+
+* 第 4 位：密码修改后至少等待多少天才能再次修改（`7`表示 7 天内不可改）；
+
+* 第 5 位：密码最长有效天数（`90`表示 90 天后过期）；
+
+* 第 6 位：密码过期前警告天数（`15`表示提前 15 天警告）；
+
+* 第 7 位：密码过期后宽限天数（超过过期时间后，用户仍可登录修改密码的天数）。
+1. **使用**`chage`**命令批量配置**
+   无需手动编辑`/etc/shadow`，可通过`chage`命令快速配置用户密码策略：
+   
+   
+
+```
+\# 配置用户boyi的密码策略
+
+sudo chage -m 7 -M 90 -W 15 -I 7 boyi
+```
+
+参数说明：
+
+
+
+* `-m 7`：密码最小修改间隔 7 天；
+
+* `-M 90`：密码最长有效 90 天；
+
+* `-W 15`：过期前 15 天警告；
+
+* `-I 7`：密码过期后 7 天内仍可登录修改（超过 7 天账号锁定）。
+1. **检查密码策略生效状态**
+   执行以下命令查看用户当前密码策略：
+   
+   
+
+```
+sudo chage -l boyi
+```
 
 ### 安装和配置防火墙
 
+Linux 防火墙是网络访问控制的核心，通过过滤进出网络接口的数据包，限制非法 IP、端口的访问。主流防火墙工具为`iptables`（传统工具）与`firewalld`（CentOS7 + 默认，动态防火墙）。
+
+#### 1. 防火墙工具选择与安装
+
+
+
+* `firewalld`**（推荐，适用于 CentOS7+/RHEL7+/Fedora）**
+  默认已预装，若未安装可执行：
+  
+  
+
+```
+sudo yum install firewalld firewall-config  # 安装服务与图形化工具
+
+sudo systemctl start firewalld              # 启动服务
+
+sudo systemctl enable firewalld             # 开机自启
+
+sudo systemctl status firewalld             # 检查运行状态
+```
+
+
+
+* `iptables`**（适用于 CentOS6/Ubuntu 或需复杂规则场景）**
+  部分系统默认未安装，需手动安装：
+  
+  
+
+```
+sudo yum install iptables iptables-services  # CentOS
+
+sudo apt install iptables iptables-persistent  # Ubuntu
+
+sudo systemctl start iptables
+
+sudo systemctl enable iptables
+```
+
+#### 2. 核心防火墙规则配置（以`firewalld`为例）
+
+`firewalld`基于 “区域（zone）” 管理规则，不同区域对应不同安全级别，常用区域为`public`（公共网络，默认）、`internal`（内部网络）。
+
+
+
+* **查看当前区域与规则**
+  
+  
+
+```
+sudo firewall-cmd --get-active-zones  # 查看活跃区域
+
+sudo firewall-cmd --list-all          # 查看当前区域所有规则
+```
+
+
+
+* **开放常用安全端口**
+  仅开放业务必需端口（如 SSH 22、HTTP 80、HTTPS 443），禁止所有未授权端口：
+  
+  
+
+```
+\# 开放SSH端口（远程登录必需，生产环境建议修改默认22端口）
+
+sudo firewall-cmd --permanent --add-port=22/tcp
+
+\# 开放HTTP/HTTPS端口（web服务）
+
+sudo firewall-cmd --permanent --add-port=80/tcp
+
+sudo firewall-cmd --permanent --add-port=443/tcp
+
+\# 开放数据库端口（如MySQL 3306，仅允许特定IP访问）
+
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="192.168.1.100/32" port port="3306" protocol="tcp" accept'
+
+\# 重新加载规则使生效
+
+sudo firewall-cmd --reload
+```
+
+
+
+* **禁止危险端口与 IP**
+  拒绝已知恶意 IP 或常见攻击端口（如 3389、135 等 Windows 常见端口，Linux 环境无需开放）：
+  
+  
+
+```
+\# 禁止特定IP访问所有端口
+
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address="10.0.0.10/32" reject'
+
+\# 禁止所有IP访问3389端口
+
+sudo firewall-cmd --permanent --remove-port=3389/tcp  # 若已开放则移除
+
+sudo firewall-cmd --permanent --add-rich-rule='rule family="ipv4" port port="3389" protocol="tcp" reject'
+
+sudo firewall-cmd --reload
+```
+
+
+
+* **配置端口转发（可选）**
+  若需将外部端口映射到内部服务端口（如将 8080 端口转发到 80）：
+  
+  
+
+```
+sudo firewall-cmd --permanent --add-masquerade  # 启用地址伪装
+
+sudo firewall-cmd --permanent --add-forward-port=port=8080:proto=tcp:toaddr=127.0.0.1:toport=80
+
+sudo firewall-cmd --reload
+```
+
+#### 3. `iptables`基础规则示例（备用）
+
+若使用`iptables`，需手动编写链规则，以下为基础安全配置：
+
+
+
+```
+\# 清空现有规则
+
+sudo iptables -F
+
+\# 设置默认策略（入站拒绝、出站允许、转发拒绝）
+
+sudo iptables -P INPUT DROP
+
+sudo iptables -P OUTPUT ACCEPT
+
+sudo iptables -P FORWARD DROP
+
+\# 允许已建立连接的数据包
+
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+\# 允许本地回环（localhost）
+
+sudo iptables -A INPUT -i lo -j ACCEPT
+
+\# 允许SSH端口
+
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+\# 保存规则（CentOS）
+
+sudo service iptables save
+```
+
 ### 安全协议和服务配置
+
+Linux 系统默认启用部分服务与协议，部分存在安全漏洞（如 Telnet、FTP 明文传输），需禁用不安全服务，启用加密协议，同时优化服务配置以降低攻击面。
+
+#### 1. 禁用不安全服务与协议
+
+
+
+* **禁止 Telnet 服务（明文传输，已被 SSH 替代）**
+  
+  
+
+```
+sudo systemctl stop telnet.socket
+
+sudo systemctl disable telnet.socket
+
+\# 卸载Telnet服务（可选）
+
+sudo yum remove telnet-server  # CentOS
+
+sudo apt remove telnetd        # Ubuntu
+```
+
+
+
+* **禁用 FTP 服务（明文传输，建议替换为 SFTP）**
+  若无需 FTP 服务，直接禁用；若需文件传输，使用 SSH 内置的 SFTP（加密传输）：
+  
+  
+
+```
+sudo systemctl stop vsftpd  # 停止FTP服务（以vsftpd为例）
+
+sudo systemctl disable vsftpd
+
+\# 验证SFTP可用性（SSH启用则默认支持）
+
+sftp user@server\_ip  # 客户端测试连接
+```
+
+
+
+* **关闭不必要的系统服务**
+  查看并禁用无用服务（如`rpcbind`、`cups`等）：
+  
+  
+
+```
+\# 查看运行中的服务
+
+sudo systemctl list-units --type=service --state=running
+
+\# 禁用无用服务（示例：禁用打印机服务cups）
+
+sudo systemctl stop cups
+
+sudo systemctl disable cups
+```
+
+#### 2. 启用加密协议与优化配置
+
+
+
+* **强化 SSH 服务安全（核心远程登录协议）**
+  SSH 默认使用 22 端口，存在暴力破解风险，需通过修改`/etc/ssh/sshd_config`优化配置：
+  
+  
+
+```
+sudo vim /etc/ssh/sshd\_config
+```
+
+关键配置修改：
+
+
+
+```
+sudo systemctl restart sshd
+```
+
+
+
+* `Port 2222`：修改默认端口为非 22 端口（如 2222，降低扫描风险）；
+
+* `PermitRootLogin no`：禁止 root 用户直接远程登录；
+
+* `PasswordAuthentication no`：禁用密码登录，仅允许 SSH 密钥登录（最安全，需提前配置密钥）；
+
+* `PermitEmptyPasswords no`：禁止空密码登录；
+
+* `MaxAuthTries 3`：最大认证尝试次数 3 次（超过则断开连接）；
+
+* `ClientAliveInterval 600`：客户端无操作 10 分钟后断开连接。
+  修改后重启 SSH 服务生效：
+- **启用 HTTPS 协议（Web 服务加密）**
+  对于 Web 服务（如 Nginx、Apache），需配置 SSL/TLS 证书，强制使用 HTTPS 加密传输：
+  
+  
+
+```
+\# 以Nginx为例，配置HTTPS（需提前获取SSL证书，如Let's Encrypt免费证书）
+
+sudo vim /etc/nginx/conf.d/ssl.conf
+```
+
+核心配置片段：
+
+
+
+```
+server {
+
+&#x20;   listen 443 ssl;
+
+&#x20;   server\_name example.com;
+
+&#x20;   # SSL证书路径
+
+&#x20;   ssl\_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+
+&#x20;   ssl\_certificate\_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+&#x20;   # 启用TLS1.2/1.3（禁用不安全的TLS1.0/1.1）
+
+&#x20;   ssl\_protocols TLSv1.2 TLSv1.3;
+
+&#x20;   # 加密套件（优先选择安全强度高的套件）
+
+&#x20;   ssl\_prefer\_server\_ciphers on;
+
+&#x20;   ssl\_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+
+&#x20;   # 强制HTTP跳转HTTPS
+
+&#x20;   return 301 https://\$host\$request\_uri;
+
+}
+```
+
+重启 Nginx 生效：
+
+
+
+```
+sudo systemctl restart nginx
+```
+
+#### 3. 协议版本与加密套件优化
+
+
+
+* **禁用不安全的 TLS 版本**
+  对于所有启用 SSL/TLS 的服务（SSH、HTTPS、SMTP 等），禁用 TLS1.0、TLS1.1（存在漏洞），仅保留 TLS1.2 及以上版本；
+
+* **选择安全加密套件**
+  优先使用支持前向 secrecy（前向保密）的加密套件（如`EECDH+AESGCM`、`EDH+AESGCM`），避免使用 RC4、3DES 等弱加密算法。
+
+> （注：文档部分内容可能由 AI 生成）
+
 
