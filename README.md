@@ -177,7 +177,7 @@ https://www.runoob.com/linux/linux-system-contents.html
 
 # Linux网络安全
 
-## Linux 网络安全
+## Linux 网络安全概述
 
 Linux 系统作为服务器领域的主流操作系统，其网络安全防护需从基础配置、访问控制、协议优化等多层面构建防线。以下从密码策略、防火墙、安全协议与服务三个核心模块，详细说明配置方案与实践要点。
 
@@ -620,6 +620,5 @@ sudo systemctl restart nginx
 * **选择安全加密套件**
   优先使用支持前向 secrecy（前向保密）的加密套件（如`EECDH+AESGCM`、`EDH+AESGCM`），避免使用 RC4、3DES 等弱加密算法。
 
-> （注：文档部分内容可能由 AI 生成）
 
 
