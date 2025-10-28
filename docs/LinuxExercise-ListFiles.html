@@ -14,55 +14,73 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             color: #333;
-            display: flex;
-            min-height: 100vh;
+            background-color: #f9f9f9;
         }
-        /* 导航栏样式 */
-        .sidebar {
-            width: 260px;
-            background-color: #2c3e50;
-            color: white;
+        /* 导航栏样式与 TextView 页面保持一致 */
+        .sidebar-nav {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background-color: #f5f5f5;
+            border-right: 1px solid #ddd;
             padding: 20px 0;
             overflow-y: auto;
-            flex-shrink: 0;
+            box-sizing: border-box;
+            z-index: 999;
         }
-        .sidebar h2 {
+        .nav-title {
+            font-size: 18px;
+            font-weight: bold;
             padding: 0 20px 15px;
-            border-bottom: 1px solid #34495e;
-            margin-bottom: 20px;
-            font-size: 1.2em;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+            color: #333;
         }
-        .sidebar ul {
+        .nav-list {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        .sidebar li {
-            margin-bottom: 5px;
-        }
-        .sidebar a {
-            color: #ecf0f1;
-            text-decoration: none;
-            padding: 10px 20px;
+        .nav-list li a {
             display: block;
-            transition: background 0.3s;
+            padding: 8px 25px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.2s;
         }
-        .sidebar a:hover {
-            background-color: #34495e;
+        .nav-list li a:hover {
+            background-color: #e0e0e0;
         }
-        .sidebar .submenu {
-            padding-left: 20px;
-            background-color: #34495e;
+        .sub-nav {
+            list-style: none;
+            padding-left: 15px;
+            background-color: #fafafa;
         }
-        .sidebar .submenu a {
-            padding-left: 30px;
-            font-size: 0.9em;
+        .sub-nav li a {
+            padding-left: 35px;
+            font-size: 13px;
+            color: #666;
         }
 
         /* 主内容区样式 */
         .main-content {
-            flex-grow: 1;
-            padding: 30px;
+            margin-left: 240px;
+            padding: 30px 40px;
             background-color: #f9f9f9;
-            overflow-y: auto;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+            .sidebar-nav {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
         }
         h1, h2, h3 {
             color: #2c3e50;
@@ -114,14 +132,14 @@
 </head>
 <body>
     <!-- 左侧导航栏 -->
-    <div class="sidebar">
-        <h2>实验导航</h2>
-        <ul>
+    <nav class="sidebar-nav">
+        <div class="nav-title">实验目录</div>
+        <ul class="nav-list">
             <li><a href="#experiment-goal">一、实验目标</a></li>
             <li><a href="#experiment-env">二、实验环境</a></li>
             <li>
                 <a href="#experiment-content">三、实验内容与步骤</a>
-                <ul class="submenu">
+                <ul class="sub-nav">
                     <li><a href="#task-1">任务 1：查看当前目录文件</a></li>
                     <li><a href="#task-2">任务 2：查看详细文件信息</a></li>
                     <li><a href="#task-3">任务 3：显示隐藏文件</a></li>
@@ -135,7 +153,7 @@
             <li><a href="#report-requirements">四、实验报告要求</a></li>
             <li><a href="#hints">提示信息</a></li>
         </ul>
-    </div>
+    </nav>
 
     <!-- 主内容区 -->
     <div class="main-content">
