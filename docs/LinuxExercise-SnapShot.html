@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux基础及应用教程：虚拟机快照</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+        h2 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.3em;
+        }
+        .code-block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1em;
+            margin: 1em 0;
+            font-family: "Consolas", monospace;
+            overflow-x: auto;
+        }
+        .task-section {
+            margin-bottom: 2em;
+            padding-left: 1em;
+            border-left: 3px solid #3498db;
+        }
+        .hint {
+            background-color: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 1em;
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linux基础及应用教程：虚拟机快照</h1>
+
+    <h2>一、实验目标</h2>
+    <ol>
+        <li>掌握 <strong>VMware 虚拟机快照的创建、恢复与删除操作</strong>。</li>
+        <li>理解快照在系统备份与还原中的实际作用。</li>
+    </ol>
+
+    <h2>二、实验环境</h2>
+    <ol>
+        <li><strong>硬件环境</strong>：机房 PC（已启用虚拟化功能）。</li>
+        <li><strong>软件环境</strong>：VMware Workstation + CentOS 系统（已预装，可直接登录，用户名与密码见桌面“关于密码.txt”）。</li>
+    </ol>
+
+    <h2>三、实验内容与步骤</h2>
+
+    <div class="task-section">
+        <h3>任务 1：熟悉 CentOS 系统登录</h3>
+        <ol>
+            <li>打开 VMware Workstation，在左侧列表中找到预设的 <strong>CentOS 虚拟机</strong>，点击 <strong>“开启此虚拟机”</strong>。</li>
+            <li>在登录界面输入用户名与密码（密码输入时不会显示，输入完成后按 <strong>Enter</strong>）。</li>
+            <li>登录成功后，在终端中执行以下命令验证登录状态：</li>
+        </ol>
+        <div class="code-block">
+            whoami<br>
+            pwd
+        </div>
+        <ul>
+            <li>输出结果应分别为：
+                <ul>
+                    <li>当前用户：<code>njucm</code></li>
+                    <li>当前工作目录：<code>/home/njucm</code></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="task-section">
+        <h3>任务 2：创建虚拟机快照（系统备份）</h3>
+        <ol>
+            <li>确保 CentOS 系统处于运行状态。</li>
+            <li>在 VMware 菜单栏中选择：<br>
+                <strong>虚拟机 → 快照 → 拍摄快照</strong></li>
+            <li>在弹出的窗口中填写信息：
+                <ul>
+                    <li><strong>快照名称</strong>：<code>CentOS-Initial-2025XX</code></li>
+                    <li><strong>快照描述</strong>：<code>初始登录状态，未做任何操作</code></li>
+                </ul>
+            </li>
+            <li>点击 <strong>“拍摄”</strong>，等待进度条完成（约 1–2 分钟）。</li>
+            <li>创建完成后，进入：<br>
+                <strong>虚拟机 → 快照 → 快照管理器</strong><br>
+                确认快照名称、创建时间与描述均显示正常。</li>
+        </ol>
+    </div>
+
+    <div class="task-section">
+        <h3>任务 3：修改系统后恢复快照</h3>
+        <ol>
+            <li>在 CentOS 终端中执行以下命令，创建一个测试目录（模拟系统修改）：</li>
+        </ol>
+        <div class="code-block">
+            mkdir ~/test_snapshot<br>
+            ls ~
+        </div>
+        <p>确认 <code>test_snapshot</code> 目录已出现。</p>
+        <ol start="2">
+            <li>在 VMware 菜单中点击：<br>
+                <strong>虚拟机 → 快照 → 恢复到上一快照</strong><br>
+                或打开 <strong>快照管理器</strong>，选中之前创建的快照 <code>CentOS-Initial-2025XX</code>，点击 <strong>“转到”</strong>。</li>
+            <li>弹出提示时选择 <strong>“是”</strong>，等待系统自动重启并恢复。</li>
+            <li>登录后执行：</li>
+        </ol>
+        <div class="code-block">
+            ls ~
+        </div>
+        <p>确认 <code>test_snapshot</code> 目录已消失，表示系统成功恢复至快照创建时的状态。</p>
+    </div>
+
+    <div class="task-section">
+        <h3>任务 4：删除冗余快照</h3>
+        <ol>
+            <li>打开 <strong>快照管理器</strong>。</li>
+            <li>选中需要删除的快照（确保不是当前正在使用的快照）。</li>
+            <li>点击 <strong>“删除”</strong>，根据需要选择：
+                <ul>
+                    <li><strong>删除</strong>：仅删除该快照；</li>
+                    <li><strong>删除所有后续快照</strong>：删除该快照及其之后创建的所有快照。</li>
+                </ul>
+            </li>
+            <li>点击 <strong>“确定”</strong>，等待删除完成。</li>
+        </ol>
+    </div>
+
+    <h2>四、实验报告要求</h2>
+    <ol>
+        <li>记录 <strong>快照创建过程</strong>，并附上 <strong>“快照管理器”截图</strong>（需完整显示快照名称、创建时间、描述）。</li>
+        <li>展示 <strong>快照恢复验证</strong> 过程截图（包含 <code>mkdir ~/test_snapshot</code>、<code>ls ~</code> 的执行前后对比）。</li>
+        <li>说明 <strong>快照的作用。</strong></li>
+        <li>说明 <strong>快照与完整克隆的区别。</strong></li>
+    </ol>
+
+    <div class="hint">
+        <strong>提示</strong>：<br>
+        - 创建快照前应确保系统状态稳定；<br>
+        - 不建议长期依赖多个快照，会增加磁盘负担；<br>
+        - 删除快照不会影响当前系统运行状态。
+    </div>
+</body>
+</html>
