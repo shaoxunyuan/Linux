@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux基础及应用教程实验：列出文件</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+        }
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+        h2 {
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 0.3em;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .task {
+            margin-bottom: 2em;
+        }
+        .hint {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linux基础及应用教程实验：列出文件</h1>
+
+    <h2>一、实验目标</h2>
+    <ol>
+        <li>熟练掌握 <code>ls</code> 命令的多种使用方式，理解不同参数的功能与输出差异。</li>
+        <li>能够通过 <code>ls</code> 快速查看文件目录结构及文件属性。</li>
+        <li>掌握 <code>ls</code> 在系统文件管理与排错中的常见应用场景。</li>
+    </ol>
+
+    <hr>
+
+    <h2>二、实验环境</h2>
+    <ol>
+        <li><strong>硬件</strong>：机房 PC（已启用虚拟化功能）。</li>
+        <li><strong>软件</strong>：VMware Workstation + CentOS 系统（预装，账号密码见桌面 “关于密码.txt”）。</li>
+    </ol>
+
+    <hr>
+
+    <h2>三、实验内容与步骤</h2>
+
+    <div class="task">
+        <h3>任务 1：查看当前目录文件</h3>
+        <p>执行以下命令：</p>
+        <div class="code-block">
+            ls
+        </div>
+        <p>观察 <code>/home/njucm</code> 目录下的文件与文件夹列表。<br>
+        输出仅显示文件名，不包含详细信息。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 2：查看详细文件信息</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -l
+        </div>
+        <p>输出示例：</p>
+        <div class="code-block">
+            drwxr-xr-x 2 njucm njucm 4096 Oct 10 10:00 Documents<br>
+            -rw-r--r-- 1 njucm njucm  512 Oct 23 09:30 notes.txt
+        </div>
+        <p>说明：</p>
+        <ul>
+            <li>第一列：文件权限（如 <code>drwxr-xr-x</code>）</li>
+            <li>第二列：硬链接数量</li>
+            <li>第三、四列：所有者与所属组</li>
+            <li>第五列：文件大小（单位为字节）</li>
+            <li>第六列：最后修改时间</li>
+            <li>第七列：文件或目录名称</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 3：显示隐藏文件</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -a
+        </div>
+        <p>此命令会显示以 <code>.</code> 开头的隐藏文件，例如：<code>.bashrc</code>、<code>.config</code> 等。<br>
+        这些文件通常用于保存系统或用户配置。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 4：查看根目录内容</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls /
+        </div>
+        <p>查看系统根目录下的主要结构，包括 <code>/home</code>、<code>/etc</code>、<code>/var</code>、<code>/usr</code> 等目录。<br>
+        这些目录分别存放用户文件、配置文件、日志文件与系统程序。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 5：按修改时间排序</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -lt
+        </div>
+        <p>该命令按最后修改时间降序排列，最新修改的文件会显示在最上方。<br>
+        常用于分析最近修改的配置或日志文件。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 6：以人类可读格式显示文件大小</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -lh
+        </div>
+        <p>在 <code>-l</code> 的基础上，使用 <code>-h</code> 参数将文件大小以 KB/MB/GB 格式显示，便于阅读。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 7：组合参数查看详细且包含隐藏文件</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -alh
+        </div>
+        <p>此命令综合使用 <code>-a</code>、<code>-l</code>、<code>-h</code> 参数，常用于系统排错或详细文件审查。</p>
+    </div>
+
+    <hr>
+
+    <div class="task">
+        <h3>任务 8：查看目录内容层级结构（扩展命令）</h3>
+        <p>执行：</p>
+        <div class="code-block">
+            ls -R
+        </div>
+        <p>显示当前目录及所有子目录的内容（递归显示）。<br>
+        适合在复杂项目结构中快速查看目录组织情况。</p>
+    </div>
+
+    <hr>
+
+    <h2>四、实验报告要求</h2>
+    <ol>
+        <li>提供 <code>ls</code>、<code>ls -l</code>、<code>ls -a</code>、<code>ls /</code> 的执行结果截图（需包含命令输入与完整输出）。</li>
+        <li>对比 <code>ls</code> 与 <code>ls -l</code> 的输出差异，说明 <code>-l</code> 参数的作用及适用场景。</li>
+        <li>展示 <code>ls -alh</code> 的执行结果，并说明每列信息的含义。</li>
+        <li>举例解释隐藏文件（如 <code>.bashrc</code>、<code>.vimrc</code>）的作用。</li>
+        <li>执行 <code>ls -lt</code> 后，分析最近修改的文件用途。</li>
+        <li>比较 <code>ls</code> 与 <code>ls -R</code> 的输出差异，说明递归查看目录的意义。</li>
+        <li>使用 <code>ls -lh /etc</code>，观察分析系统配置文件的大小与更新时间。</li>
+    </ol>
+
+    <div class="hint">
+        <p>✅ <strong>提示</strong>：</p>
+        <ul>
+            <li><code>ls</code> 命令的参数可组合使用（如 <code>ls -alh</code>）。</li>
+            <li>对于大目录，建议配合 <code>grep</code>、<code>head</code>、<code>tail</code> 等命令过滤查看。</li>
+            <li>常用别名可添加到 <code>~/.bashrc</code> 文件中，例如：</li>
+        </ul>
+        <div class="code-block">
+            alias ll='ls -alh'<br>
+            source ~/.bashrc
+        </div>
+    </div>
+</body>
+</html>
