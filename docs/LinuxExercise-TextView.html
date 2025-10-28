@@ -1262,24 +1262,33 @@ pre[class*="language-"] {
 <blockquote>
 <p><strong>执行路径要求</strong>：在当前用户家目录下执行：</p>
 <pre><code class="fenced-code-block language-bash"><span class="token builtin class-name">cd</span> ~
+
 <span class="token builtin class-name">pwd</span></code></pre>
 <p>输出应形如 <code>/home/student</code>。</p>
 </blockquote>
 <h4 class="atx" id="1️⃣-创建实验目录">1️⃣ 创建实验目录</h4>
 <pre><code class="fenced-code-block language-bash"><span class="token function">mkdir</span> -p ~/text_lab
+
 <span class="token builtin class-name">cd</span> ~/text_lab
+
 <span class="token builtin class-name">pwd</span></code></pre>
 <h4 class="atx" id="2️⃣-生成带有文本数字的示例文件（可直接复制命令）">2️⃣ 生成带有“文本+数字”的示例文件（可直接复制命令）</h4>
 <pre><code class="fenced-code-block language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">seq</span> <span class="token number">1</span> <span class="token number">100</span><span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token builtin class-name">echo</span> <span class="token string">"第<span class="token variable">${i}</span>行：这是一个用于文本查看实验的示例内容。"</span> <span class="token operator">&gt;&gt;</span> mixed_text.txt<span class="token punctuation">;</span> <span class="token keyword">done</span>
+
 <span class="token function">ls</span> -lh mixed_text.txt
+
 <span class="token function">head</span> -n <span class="token number">3</span> mixed_text.txt
+
 <span class="token function">tail</span> -n <span class="token number">3</span> mixed_text.txt</code></pre>
 <h4 class="atx" id="3️⃣-复制系统示例文件">3️⃣ 复制系统示例文件</h4>
 <pre><code class="fenced-code-block language-bash"><span class="token function">cp</span> /etc/passwd ./passwd
+
 <span class="token function">ls</span> -lh <span class="token function">passwd</span>
+
 <span class="token function">head</span> -n <span class="token number">3</span> <span class="token function">passwd</span></code></pre>
 <h4 class="atx" id="4️⃣-创建长文本文件（可直接复制命令）">4️⃣ 创建长文本文件（可直接复制命令）</h4>
 <pre><code class="fenced-code-block language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">seq</span> <span class="token number">1</span> <span class="token number">500</span><span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token builtin class-name">echo</span> <span class="token string">"日志记录第 <span class="token variable">${i}</span> 条：用于分页浏览与搜索的长文本样例。"</span> <span class="token operator">&gt;&gt;</span> long_text.txt<span class="token punctuation">;</span> <span class="token keyword">done</span>
+
 <span class="token function">wc</span> -l long_text.txt</code></pre>
 <h4 class="atx" id="5️⃣-创建动态文件用于-tail--f（可直接复制命令）">5️⃣ 创建动态文件用于 <code>tail -f</code>（可直接复制命令）</h4>
 <pre><code class="fenced-code-block language-bash"><span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword">while</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token keyword">if</span> <span class="token variable"><span class="token punctuation">((</span> count <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">))</span></span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token builtin class-name">echo</span> <span class="token string">"【10秒提醒】当前时间：<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>"</span> <span class="token operator">&gt;&gt;</span> app.log<span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token builtin class-name">echo</span> <span class="token string">"启动应用：<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>"</span> <span class="token operator">&gt;&gt;</span> app.log<span class="token punctuation">;</span> <span class="token keyword">fi</span><span class="token punctuation">;</span> <span class="token variable"><span class="token punctuation">((</span>count<span class="token operator">++</span><span class="token punctuation">))</span></span><span class="token punctuation">;</span> <span class="token function">sleep</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token keyword">done</span> <span class="token operator">&amp;</span></code></pre>
@@ -1365,6 +1374,7 @@ pre[class*="language-"] {
 <ol>
 <li><p>比较 <code>head</code> 与 <code>tail</code> 输出：  </p>
 <pre><code class="fenced-code-block language-bash"><span class="token function">head</span> -n <span class="token number">3</span> ~/text_lab/mixed_text.txt
+
 <span class="token function">tail</span> -n <span class="token number">3</span> ~/text_lab/mixed_text.txt</code></pre>
 </li>
 <li><p>管道结合 <code>cat</code> 与 <code>head</code> 使用：  </p>
