@@ -4,10 +4,174 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程-实验-文本查看</title>
-  <!-- 引用docs文件夹下的markdown-style.css -->
+  <!-- 原有markdown样式 -->
   <link rel="stylesheet" href="docs/markdown-style.css">
+  <!-- 1. 代码高亮库Prism样式（默认主题） -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  <!-- 2. 图标库（复制按钮图标） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <!-- 3. 导航栏与代码块自定义样式 -->
+  <style>
+    /* 导航栏整体样式 */
+    .sidebar-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: #f5f5f5;
+      border-right: 1px solid #ddd;
+      padding: 20px 0;
+      overflow-y: auto;
+      box-sizing: border-box;
+      z-index: 999;
+    }
+
+    /* 导航标题 */
+    .nav-title {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 0 20px 15px;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    /* 导航列表 */
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-list li a {
+      display: block;
+      padding: 8px 25px;
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+
+    /* 导航hover效果 */
+    .nav-list li a:hover {
+      background-color: #e0e0e0;
+    }
+
+    /* 子导航样式 */
+    .sub-nav {
+      list-style: none;
+      padding-left: 15px;
+      background-color: #fafafa;
+    }
+
+    .sub-nav li a {
+      padding-left: 35px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* 主体内容偏移 */
+    .markdown-body {
+      margin-left: 240px;
+      padding: 20px 40px;
+      max-width: 1200px;
+      box-sizing: border-box;
+    }
+
+    /* 代码块容器 */
+    .code-block {
+      position: relative;
+      margin: 15px 0;
+    }
+
+    /* 复制按钮 */
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255,255,255,0.9);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .copy-btn:hover {
+      background-color: #fff;
+      color: #333;
+      border-color: #bbb;
+    }
+
+    /* 复制成功提示 */
+    .copy-btn.success {
+      background-color: #4CAF50;
+      color: white;
+      border-color: #4CAF50;
+    }
+
+    .copy-btn.success i::after {
+      content: " 已复制";
+      font-family: sans-serif;
+    }
+
+    /* 回到首页按钮样式调整（避免被导航遮挡） */
+    .back-to-home {
+      margin-left: 240px;
+      margin-left: 240px;
+      margin: 20px 40px;
+      display: inline-block;
+    }
+
+    /* 响应式适配（小屏幕隐藏导航） */
+    @media (max-width: 768px) {
+      .sidebar-nav {
+        display: none;
+      }
+      .markdown-body {
+        margin-left: 0;
+        padding: 20px;
+      }
+      .back-to-home {
+        margin-left: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- 左侧导航栏 -->
+  <nav class="sidebar-nav">
+    <div class="nav-title">实验目录</div>
+    <ul class="nav-list">
+      <li><a href="#linux基础及应用教程-实验-文本查看">实验标题</a></li>
+      <li><a href="#一、实验目标">一、实验目标</a></li>
+      <li><a href="#二、实验环境">二、实验环境</a></li>
+      <li>
+        <a href="#三、实验内容与步骤">三、实验内容与步骤</a>
+        <ul class="sub-nav">
+          <li><a href="#文件准备（按路径与文件名执行）">文件准备</a></li>
+          <li><a href="#1️⃣-创建实验目录">1. 创建实验目录</a></li>
+          <li><a href="#2️⃣-生成带有文本数字的示例文件（可直接复制命令）">2. 生成示例文件</a></li>
+          <li><a href="#3️⃣-复制系统示例文件">3. 复制系统文件</a></li>
+          <li><a href="#4️⃣-创建长文本文件（可直接复制命令）">4. 创建长文本文件</a></li>
+          <li><a href="#5️⃣-创建动态文件用于-tail--f（可直接复制命令）">5. 创建动态文件</a></li>
+          <li><a href="#任务1-使用-cat-查看完整文件内容">任务1：cat命令</a></li>
+          <li><a href="#任务2-使用-more-分页查看文件">任务2：more命令</a></li>
+          <li><a href="#任务3-使用-less-灵活查看文件">任务3：less命令</a></li>
+          <li><a href="#任务4-使用-head-查看文件前几行">任务4：head命令</a></li>
+          <li><a href="#任务5-使用-tail-查看文件末尾内容">任务5：tail命令</a></li>
+          <li><a href="#任务6-对比与综合操作练习">任务6：综合练习</a></li>
+        </ul>
+      </li>
+      <li><a href="#四、实验报告要求">四、实验报告要求</a></li>
+    </ul>
+  </nav>
+
+  <!-- 文章主体内容 -->
   <article class="markdown-body">
     <h1 class="atx" id="linux基础及应用教程-实验-文本查看">Linux基础及应用教程-实验-文本查看</h1>
     <h2 class="atx" id="一、实验目标">一、实验目标</h2>
@@ -27,130 +191,267 @@
     <h3 class="atx" id="文件准备（按路径与文件名执行）">文件准备（按路径与文件名执行）</h3>
     <blockquote>
       <p><strong>执行路径要求</strong>：在当前用户家目录下执行：</p>
-      <pre><code class="fenced-code-block language-bash"><span class="token builtin class-name">cd</span> ~
+      <div class="code-block">
+        <button class="copy-btn" title="复制代码">
+          <i class="fa fa-clipboard"></i>
+        </button>
+        <pre><code class="language-bash">cd ~
 
-<span class="token builtin class-name">pwd</span></code></pre>
+pwd</code></pre>
+      </div>
       <p>输出应形如 <code>/home/student</code>。</p>
     </blockquote>
     <h4 class="atx" id="1️⃣-创建实验目录">1️⃣ 创建实验目录</h4>
-    <pre><code class="fenced-code-block language-bash"><span class="token function">mkdir</span> -p ~/text_lab
+    <div class="code-block">
+      <button class="copy-btn" title="复制代码">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <pre><code class="language-bash">mkdir -p ~/text_lab
 
-<span class="token builtin class-name">cd</span> ~/text_lab
+cd ~/text_lab
 
-<span class="token builtin class-name">pwd</span></code></pre>
+pwd</code></pre>
+    </div>
     <h4 class="atx" id="2️⃣-生成带有文本数字的示例文件（可直接复制命令）">2️⃣ 生成带有“文本+数字”的示例文件（可直接复制命令）</h4>
-    <pre><code class="fenced-code-block language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">seq</span> <span class="token number">1</span> <span class="token number">100</span><span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token builtin class-name">echo</span> <span class="token string">"第<span class="token variable">${i}</span>行：这是一个用于文本查看实验的示例内容。"</span> <span class="token operator">&gt;&gt;</span> mixed_text.txt<span class="token punctuation">;</span> <span class="token keyword">done</span>
+    <div class="code-block">
+      <button class="copy-btn" title="复制代码">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <pre><code class="language-bash">for i in $(seq 1 100); do echo "第${i}行：这是一个用于文本查看实验的示例内容。" >> mixed_text.txt; done
 
-<span class="token function">ls</span> -lh mixed_text.txt
+ls -lh mixed_text.txt
 
-<span class="token function">head</span> -n <span class="token number">3</span> mixed_text.txt
-
-<span class="token function">tail</span> -n <span class="token number">3</span> mixed_text.txt</code></pre>
+head -n 3 mixed_text.txt</code></pre>
+    </div>
     <h4 class="atx" id="3️⃣-复制系统示例文件">3️⃣ 复制系统示例文件</h4>
-    <pre><code class="fenced-code-block language-bash"><span class="token function">cp</span> /etc/passwd ./passwd
+    <div class="code-block">
+      <button class="copy-btn" title="复制代码">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <pre><code class="language-bash">cp /etc/passwd ./passwd
 
-<span class="token function">ls</span> -lh <span class="token function">passwd</span>
+ls -lh passwd
 
-<span class="token function">head</span> -n <span class="token number">3</span> <span class="token function">passwd</span></code></pre>
+head -n 3 passwd</code></pre>
+    </div>
     <h4 class="atx" id="4️⃣-创建长文本文件（可直接复制命令）">4️⃣ 创建长文本文件（可直接复制命令）</h4>
-    <pre><code class="fenced-code-block language-bash"><span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">seq</span> <span class="token number">1</span> <span class="token number">500</span><span class="token variable">)</span></span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token builtin class-name">echo</span> <span class="token string">"日志记录第 <span class="token variable">${i}</span> 条：用于分页浏览与搜索的长文本样例。"</span> <span class="token operator">&gt;&gt;</span> long_text.txt<span class="token punctuation">;</span> <span class="token keyword">done</span>
+    <div class="code-block">
+      <button class="copy-btn" title="复制代码">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <pre><code class="language-bash">for i in $(seq 1 500); do echo "日志记录第 ${i} 条：用于分页浏览与搜索的长文本样例。" >> long_text.txt; done
 
-<span class="token function">wc</span> -l long_text.txt</code></pre>
+wc -l long_text.txt</code></pre>
+    </div>
     <h4 class="atx" id="5️⃣-创建动态文件用于-tail--f（可直接复制命令）">5️⃣ 创建动态文件用于 <code>tail -f</code>（可直接复制命令）</h4>
-    <pre><code class="fenced-code-block language-bash"><span class="token assign-left variable">count</span><span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword">while</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token keyword">do</span> <span class="token keyword">if</span> <span class="token variable"><span class="token punctuation">((</span> count <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">))</span></span><span class="token punctuation">;</span> <span class="token keyword">then</span> <span class="token builtin class-name">echo</span> <span class="token string">"【10秒提醒】当前时间：<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>"</span> <span class="token operator">&gt;&gt;</span> app.log<span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token builtin class-name">echo</span> <span class="token string">"启动应用：<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span><span class="token variable">)</span></span>"</span> <span class="token operator">&gt;&gt;</span> app.log<span class="token punctuation">;</span> <span class="token keyword">fi</span><span class="token punctuation">;</span> <span class="token variable"><span class="token punctuation">((</span>count<span class="token operator">++</span><span class="token punctuation">))</span></span><span class="token punctuation">;</span> <span class="token function">sleep</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token keyword">done</span> <span class="token operator">&amp;</span></code></pre>
+    <div class="code-block">
+      <button class="copy-btn" title="复制代码">
+        <i class="fa fa-clipboard"></i>
+      </button>
+      <pre><code class="language-bash">count=0; while true; do if (( count % 5 == 0 )); then echo "【10秒提醒】当前时间：$(date)" >> app.log; else echo "启动应用：$(date)" >> app.log; fi; ((count++)); sleep 2; done &</code></pre>
+    </div>
     <hr>
     <h3 class="atx" id="任务1-使用-cat-查看完整文件内容">任务1. 使用 cat 查看完整文件内容</h3>
     <ol>
-      <li><p>查看 <code>mixed_text.txt</code> 文件内容：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> ~/text_lab/mixed_text.txt</code></pre>
-      <p>显示整个文件内容，适用于内容较短的文本。</p>
+      <li>
+        <p>查看 <code>mixed_text.txt</code> 文件内容：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat ~/text_lab/mixed_text.txt</code></pre>
+        </div>
+        <p>显示整个文件内容，适用于内容较短的文本。</p>
       </li>
-      <li><p>同时显示行号：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> -n ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>同时显示行号：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat -n ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>查看系统文件 <code>/etc/passwd</code>：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> ~/text_lab/passwd</code></pre>
+      <li>
+        <p>查看系统文件 <code>/etc/passwd</code>：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat ~/text_lab/passwd</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
     <h3 class="atx" id="任务2-使用-more-分页查看文件">任务2. 使用 more 分页查看文件</h3>
     <ol>
-      <li><p>分页查看 <code>long_text.txt</code> 文件：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">more</span> ~/text_lab/long_text.txt</code></pre>
-      <ul>
-        <li>按 <strong>空格键</strong> 翻页。  </li>
-        <li>按 <strong>Enter</strong> 下移一行。  </li>
-        <li>按 <strong>q</strong> 退出分页查看。</li>
-      </ul>
+      <li>
+        <p>分页查看 <code>long_text.txt</code> 文件：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">more ~/text_lab/long_text.txt</code></pre>
+        </div>
+        <ul>
+          <li>按 <strong>空格键</strong> 翻页。  </li>
+          <li>按 <strong>Enter</strong> 下移一行。  </li>
+          <li>按 <strong>q</strong> 退出分页查看。</li>
+        </ul>
       </li>
-      <li><p>也可以查看 <code>/etc/passwd</code>：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">more</span> ~/text_lab/passwd</code></pre>
+      <li>
+        <p>也可以查看 <code>/etc/passwd</code>：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">more ~/text_lab/passwd</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
     <h3 class="atx" id="任务3-使用-less-灵活查看文件">任务3. 使用 less 灵活查看文件</h3>
     <ol>
-      <li><p>查看 <code>mixed_text.txt</code> 文件：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">less</span> ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>查看 <code>mixed_text.txt</code> 文件：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">less ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>可使用以下快捷键操作：  </p>
-      <ul>
-        <li><strong>↑ / ↓</strong>：逐行滚动  </li>
-        <li><strong>PageUp / PageDown</strong>：分页滚动  </li>
-        <li><strong>/关键字</strong>：搜索，如 <code>/第50行</code>  </li>
-        <li><strong>n</strong>：下一个匹配，<strong>N</strong>：上一个匹配  </li>
-        <li><strong>q</strong>：退出</li>
-      </ul>
+      <li>
+        <p>可使用以下快捷键操作：  </p>
+        <ul>
+          <li><strong>↑ / ↓</strong>：逐行滚动  </li>
+          <li><strong>PageUp / PageDown</strong>：分页滚动  </li>
+          <li><strong>/关键字</strong>：搜索，如 <code>/第50行</code>  </li>
+          <li><strong>n</strong>：下一个匹配，<strong>N</strong>：上一个匹配  </li>
+          <li><strong>q</strong>：退出</li>
+        </ul>
       </li>
-      <li><p>查看长文件体验滚动与搜索：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">less</span> ~/text_lab/long_text.txt</code></pre>
+      <li>
+        <p>查看长文件体验滚动与搜索：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">less ~/text_lab/long_text.txt</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
     <h3 class="atx" id="任务4-使用-head-查看文件前几行">任务4. 使用 head 查看文件前几行</h3>
     <ol>
-      <li><p>默认显示前 10 行：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">head</span> ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>默认显示前 10 行：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">head ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>指定显示前 5 行：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">head</span> -n <span class="token number">5</span> ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>指定显示前 5 行：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">head -n 5 ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>查看系统文件前 3 行：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">head</span> -n <span class="token number">3</span> ~/text_lab/passwd</code></pre>
+      <li>
+        <p>查看系统文件前 3 行：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">head -n 3 ~/text_lab/passwd</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
     <h3 class="atx" id="任务5-使用-tail-查看文件末尾内容">任务5. 使用 tail 查看文件末尾内容</h3>
     <ol>
-      <li><p>默认显示末尾 10 行：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">tail</span> ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>默认显示末尾 10 行：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">tail ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>指定显示末尾 5 行：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">tail</span> -n <span class="token number">5</span> ~/text_lab/mixed_text.txt</code></pre>
+      <li>
+        <p>指定显示末尾 5 行：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">tail -n 5 ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>查看系统文件末尾内容：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">tail</span> -n <span class="token number">5</span> ~/text_lab/passwd</code></pre>
+      <li>
+        <p>查看系统文件末尾内容：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">tail -n 5 ~/text_lab/passwd</code></pre>
+        </div>
       </li>
-      <li><p>结合 <code>-f</code> 参数实时监控文件变化（需找到生成的app.log）：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">tail</span> -f ~/text_lab/app.log</code></pre>
+      <li>
+        <p>结合 <code>-f</code> 参数实时监控文件变化（需找到生成的app.log）：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">tail -f ~/text_lab/app.log</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
     <h3 class="atx" id="任务6-对比与综合操作练习">任务6. 对比与综合操作练习</h3>
     <ol>
-      <li><p>比较 <code>head</code> 与 <code>tail</code> 输出：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">head</span> -n <span class="token number">3</span> ~/text_lab/mixed_text.txt
+      <li>
+        <p>比较 <code>head</code> 与 <code>tail</code> 输出：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">head -n 3 ~/text_lab/mixed_text.txt
 
-<span class="token function">tail</span> -n <span class="token number">3</span> ~/text_lab/mixed_text.txt</code></pre>
+tail -n 3 ~/text_lab/mixed_text.txt</code></pre>
+        </div>
       </li>
-      <li><p>管道结合 <code>cat</code> 与 <code>head</code> 使用：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> ~/text_lab/mixed_text.txt <span class="token operator">|</span> <span class="token function">head</span> -n <span class="token number">10</span></code></pre>
+      <li>
+        <p>管道结合 <code>cat</code> 与 <code>head</code> 使用：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat ~/text_lab/mixed_text.txt | head -n 10</code></pre>
+        </div>
       </li>
-      <li><p>管道结合 <code>cat</code> 与 <code>tail</code> 使用：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> ~/text_lab/mixed_text.txt <span class="token operator">|</span> <span class="token function">tail</span> -n <span class="token number">5</span></code></pre>
+      <li>
+        <p>管道结合 <code>cat</code> 与 <code>tail</code> 使用：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat ~/text_lab/mixed_text.txt | tail -n 5</code></pre>
+        </div>
       </li>
-      <li><p>用 <code>less</code> 查看命令输出结果：  </p>
-      <pre><code class="fenced-code-block language-bash"><span class="token function">cat</span> ~/text_lab/mixed_text.txt <span class="token operator">|</span> <span class="token function">less</span></code></pre>
+      <li>
+        <p>用 <code>less</code> 查看命令输出结果：  </p>
+        <div class="code-block">
+          <button class="copy-btn" title="复制代码">
+            <i class="fa fa-clipboard"></i>
+          </button>
+          <pre><code class="language-bash">cat ~/text_lab/mixed_text.txt | less</code></pre>
+        </div>
       </li>
     </ol>
     <hr>
@@ -180,6 +481,47 @@
 
   <!-- 回到首页按钮 -->
   <a href="/shaoxunyuan.github.io/Linux/" class="back-to-home">回到首页</a>
-  
+
+  <!-- 代码高亮与复制功能脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script>
+    // 代码复制功能
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // 获取当前代码块内容
+        const codeElement = this.nextElementSibling.querySelector('code');
+        const codeContent = codeElement.textContent;
+        
+        // 复制到剪贴板
+        navigator.clipboard.writeText(codeContent).then(() => {
+          // 显示成功状态
+          this.classList.add('success');
+          // 2秒后恢复原样
+          setTimeout(() => {
+            this.classList.remove('success');
+          }, 2000);
+        }).catch(err => {
+          console.error('代码复制失败:', err);
+          alert('复制失败，请手动复制');
+        });
+      });
+    });
+
+    // 导航栏锚点跳转平滑滚动（可选优化）
+    document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 20,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
