@@ -15,12 +15,25 @@
         body {
             font-family: "Microsoft YaHei", "Helvetica Neue", sans-serif;
             padding: 30px;
-            display: flex;
-            gap: 40px;
             background-color: #f8f9fa;
             color: #333;
             min-height: 100vh;
+            display: flex;
             flex-direction: column;
+        }
+
+        /* 学院信息区域 */
+        .college-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .college-info h3 {
+            color: #007bff;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
 
         /* 主体容器 */
@@ -30,12 +43,12 @@
             flex: 1;
         }
 
-        /* 左侧固定目录样式 */
+        /* 左侧左侧固定目录样式 */
         .left-sidebar {
             width: 280px;
             position: sticky;
             top: 30px;
-            height: calc(100vh - 120px);
+            height: calc(100vh - 180px);
             overflow-y: auto;
             padding: 25px;
             background-color: #fff;
@@ -133,6 +146,11 @@
     </style>
 </head>
 <body>
+    <!-- 学院信息顶部区域 -->
+    <div class="college-info">
+        <h3>南京中医药大学 人工智能与信息技术学院</h3>
+    </div>
+
     <div class="container">
         <!-- 左侧固定目录 -->
         <div class="left-sidebar">
