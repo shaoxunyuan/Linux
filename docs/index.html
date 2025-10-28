@@ -4,22 +4,101 @@
     <meta charset="UTF-8">
     <title>Linux 实验文档目录</title>
     <style>
-        /* 简单样式，保持简洁易读 */
-        body { font-family: "Microsoft YaHei", sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
-        h1 { margin-bottom: 20px; }
-        ul { list-style-type: decimal; padding-left: 20px; } /* 有序列表，显示数字序号 */
-        li { margin: 10px 0; }
-        a { text-decoration: none; color: #0066cc; }
-        a:hover { color: #003366; }
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            padding: 20px;
+            display: flex; /* 使用flex布局创建左右结构 */
+            gap: 30px; /* 左右区域间距 */
+        }
+
+        /* 左侧固定目录样式 */
+        .left-sidebar {
+            width: 250px;
+            position: sticky; /* 固定定位 */
+            top: 20px;
+            height: calc(100vh - 40px); /* 视口高度减去上下内边距 */
+            overflow-y: auto; /* 内容过长时可滚动 */
+            padding: 20px;
+            border-right: 1px solid #eee; /* 右侧分隔线 */
+        }
+
+        .left-sidebar h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .left-sidebar ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .left-sidebar li {
+            margin: 15px 0; /* 左侧目录项间距 */
+        }
+
+        /* 右侧内容区域样式 */
+        .right-content {
+            flex: 1; /* 占剩余空间 */
+            max-width: 800px; /* 限制最大宽度 */
+            padding: 20px 0;
+        }
+
+        .right-content h1 {
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        .right-content ul {
+            list-style-type: decimal;
+            padding-left: 30px;
+        }
+
+        .right-content li {
+            margin: 25px 0; /* 右侧标题中间增加间距 */
+            font-size: 1.05rem;
+        }
+
+        /* 链接样式 */
+        a {
+            text-decoration: none;
+            color: #0066cc;
+        }
+
+        a:hover {
+            color: #003366;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Linux 实验文档目录</h1>
-    <ul>
-        <li><a href="LinuxExercise-TextView.html">1. 文本查看实验</a></li>
-        <li><a href="exercise1.html">2. 实验1：XXX操作</a></li>
-        <li><a href="exercise2.html">3. 实验2：XXX配置</a></li>
-        <!-- 可继续添加更多实验条目 -->
-    </ul>
+    <!-- 左侧固定目录 -->
+    <div class="left-sidebar">
+        <h2>实验文档导航</h2>
+        <ul>
+            <li><a href="LinuxExercise-TextView.html">1. 文本查看实验</a></li>
+            <li><a href="exercise1.html">2. 实验1：XXX操作</a></li>
+            <li><a href="exercise2.html">3. 实验2：XXX配置</a></li>
+            <!-- 可继续添加更多实验条目 -->
+        </ul>
+    </div>
+
+    <!-- 右侧主内容区 -->
+    <div class="right-content">
+        <h1>Linux 实验文档目录</h1>
+        <ul>
+            <li><a href="LinuxExercise-TextView.html">1. 文本查看实验</a></li>
+            <li><a href="exercise1.html">2. 实验1：XXX操作</a></li>
+            <li><a href="exercise2.html">3. 实验2：XXX配置</a></li>
+            <!-- 可继续添加更多实验条目 -->
+        </ul>
+    </div>
 </body>
 </html>
