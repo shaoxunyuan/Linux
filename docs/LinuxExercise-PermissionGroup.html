@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linux基础及应用教程：权限与组管理命令</title>
+  <link rel="stylesheet" href="docs/markdown-style.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <style>
+    .sidebar-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 220px;
+      height: 100vh;
+      background-color: #f5f5f5;
+      border-right: 1px solid #ddd;
+      padding: 20px 0;
+      overflow-y: auto;
+      box-sizing: border-box;
+      z-index: 999;
+    }
+    .nav-title {
+      font-size: 18px;
+      font-weight: bold;
+      padding: 0 20px 15px;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-list li a {
+      display: block;
+      padding: 8px 25px;
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    .nav-list li a:hover { background-color: #e0e0e0; }
+    .sub-nav {
+      list-style: none;
+      padding-left: 15px;
+      background-color: #fafafa;
+    }
+    .sub-nav li a {
+      padding-left: 35px;
+      font-size: 13px;
+      color: #666;
+    }
+    .markdown-body {
+      margin-left: 240px;
+      padding: 20px 40px;
+      max-width: 1200px;
+      box-sizing: border-box;
+    }
+    .code-block { position: relative; margin: 15px 0; }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(255,255,255,0.9);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #666;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+    .copy-btn:hover { background-color: #fff; color: #333; border-color: #bbb; }
+    .copy-btn.success { background-color: #4CAF50; color: white; border-color: #4CAF50; }
+    .copy-btn.success i::after { content: " 已复制"; font-family: sans-serif; }
+    .back-to-home {
+      margin-left: 240px;
+      margin: 20px 40px;
+      display: inline-block;
+    }
+    @media (max-width: 768px) {
+      .sidebar-nav { display: none; }
+      .markdown-body { margin-left: 0; padding: 20px; }
+      .back-to-home { margin-left: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="sidebar-nav">
+    <div class="nav-title">实验目录</div>
+    <ul class="nav-list">
+      <li><a href="#linux基础及应用教程：权限与组管理命令">实验标题</a></li>
+      <li><a href="#一、实验目标">一、实验目标</a></li>
+      <li><a href="#二、实验环境">二、实验环境</a></li>
+      <li>
+        <a href="#三、实验内容与步骤">三、实验内容与步骤</a>
+        <ul class="sub-nav">
+          <li><a href="#实验准备">实验准备</a></li>
+          <li><a href="#任务1-groups：查看用户所属组">任务1：groups 命令</a></li>
+          <li><a href="#任务2-chmod：修改文件权限">任务2：chmod 命令</a></li>
+          <li><a href="#任务3-chown：修改文件所有者">任务3：chown 命令</a></li>
+          <li><a href="#任务4-chgrp：修改文件所属组">任务4：chgrp 命令</a></li>
+          <li><a href="#综合实操练习">综合实操练习</a></li>
+        </ul>
+      </li>
+      <li><a href="#四、实验报告要求">四、实验报告要求</a></li>
+      <li><a href="#五、常见问题解答">五、常见问题解答</a></li>
+    </ul>
+  </nav>
+
+  <article class="markdown-body">
+    <h1 id="linux基础及应用教程：权限与组管理命令">Linux基础及应用教程：权限与组管理命令（chmod/chown/chgrp/groups）</h1>
+    <p>核心结论：chmod 用于修改文件/目录权限，chown 更改所有者，chgrp 更改所属组，groups 查看用户所属组，四者共同支撑 Linux 权限管理体系。</p>
+
+    <h2 id="一、实验目标">一、实验目标</h2>
+    <ul>
+      <li>掌握 <code>groups</code> 命令查看用户组归属的用法</li>
+      <li>熟练使用 <code>chmod</code> 命令（字母法/数字法）修改文件/目录权限</li>
+      <li>学会用 <code>chown</code> 和 <code>chgrp</code> 调整文件的所有者与所属组</li>
+      <li>理解 Linux 权限体系的核心逻辑，能独立完成权限配置实操</li>
+    </ul>
+
+    <h2 id="二、实验环境">二、实验环境</h2>
+    <ul>
+      <li>实验平台：VMware 虚拟机</li>
+      <li>操作系统：CentOS 7 / 8</li>
+      <li>登录用户：<code>njucm</code></li>
+      <li>普通用户密码：<code>123456</code></li>
+      <li>root 密码：<code>123456</code></li>
+    </ul>
+
+    <h2 id="三、实验内容与步骤">三、实验内容与步骤</h2>
+
+    <h3 id="实验准备">实验准备</h3>
+    <p>先确认登录身份并切换到 root（后续权限修改需管理员权限）：</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 确认当前登录用户
+whoami
+
+# 切换到 root 用户（输入密码 123456）
+su -
+
+# 验证 root 身份
+whoami</code></pre>
+    </div>
+
+    <h3 id="任务1-groups：查看用户所属组">任务1：groups 命令（查看用户所属组）</h3>
+    <p>功能：显示当前用户或指定用户的主组与附加组信息</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 查看当前登录用户（root）的所属组
+groups
+
+# 查看普通用户 njucm 的所属组
+groups njucm
+
+# 创建测试用户 student1 后，查看其所属组
+useradd student1
+groups student1</code></pre>
+    </div>
+    <p><strong>结果解释</strong>：输出 <code>njucm : njucm wheel</code> 表示，用户 njucm 的主组是 njucm，附加组是 wheel（wheel 组默认拥有 sudo 权限）。</p>
+
+    ---
+
+    <h3 id="任务2-chmod：修改文件权限">任务2：chmod 命令（修改文件/目录权限）</h3>
+    <p>权限说明：r（读，4）、w（写，2）、x（执行，1），对应所有者（u）、组用户（g）、其他用户（o）、所有用户（a）</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 1. 先创建测试文件和目录
+touch test.txt
+mkdir testdir
+
+# 查看初始权限（ls -l 显示详细权限信息）
+ls -l
+
+# 2. 字母法修改权限
+# 给 test.txt 所有者添加执行权限
+chmod u+x test.txt
+# 移除 testdir 组用户的写权限
+chmod g-w testdir
+# 给所有用户添加 test.txt 的读权限
+chmod a+r test.txt
+
+# 3. 数字法修改权限（常用场景）
+# 设置 test.sh 为 rwxr-xr-x（所有者全权限，其他只读可执行）
+touch test.sh
+chmod 755 test.sh
+# 设置 test.txt 为 rw-r--r--（仅所有者可读写，其他人只读）
+chmod 644 test.txt
+# 递归修改目录及内部文件权限（给 testdir 及其子内容添加组读权限）
+chmod -R g+r testdir
+
+# 查看修改后的权限
+ls -l</code></pre>
+    </div>
+    <p><strong>常用权限对照表</strong>：755（程序/脚本）、644（普通文件）、777（临时测试，不推荐）、700（仅所有者可访问）</p>
+
+    ---
+
+    <h3 id="任务3-chown：修改文件所有者">任务3：chown 命令（修改文件/目录所有者）</h3>
+    <p>功能：单独修改所有者，或同时修改所有者与所属组（需 root 权限）</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 1. 单独修改文件所有者
+chown student1 test.txt
+ls -l test.txt  # 查看所有者是否变为 student1
+
+# 2. 同时修改所有者和所属组（所有者 student1，所属组 student1）
+chown student1:student1 testdir
+ls -l | grep testdir
+
+# 3. 递归修改目录及其内部所有内容的所有者
+mkdir -p data/docs
+chown -R student1 data
+ls -l data  # 验证子目录权限变更</code></pre>
+    </div>
+
+    ---
+
+    <h3 id="任务4-chgrp：修改文件所属组">任务4：chgrp 命令（修改文件/目录所属组）</h3>
+    <p>功能：单独修改所属组，不改变所有者（需 root 权限）</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 1. 创建测试组 workgrp
+groupadd workgrp
+
+# 2. 修改 test.txt 的所属组为 workgrp
+chgrp workgrp test.txt
+ls -l test.txt  # 查看所属组是否变更
+
+# 3. 递归修改目录所属组
+chgrp -R workgrp data
+ls -l data
+
+# 4. 验证组变更效果（切换到 student1，查看是否有访问权限）
+su - student1
+ls -l test.txt
+cat test.txt  # 若权限允许则能正常读取</code></pre>
+    </div>
+
+    ---
+
+    <h3 id="综合实操练习">综合实操练习</h3>
+    <p>完成一套完整的权限配置流程，验证命令协同效果：</p>
+    <div class="code-block">
+      <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
+      <pre><code class="language-bash"># 1. 切换到 root，创建项目目录和文件
+su -
+mkdir project
+touch project/report.md project/run.sh
+
+# 2. 设置 run.sh 为可执行（755），report.md 为普通权限（644）
+chmod 755 project/run.sh
+chmod 644 project/report.md
+
+# 3. 创建开发组 devgrp 和开发用户 dev1
+groupadd devgrp
+useradd -g devgrp dev1
+passwd dev1  # 输入密码 123456
+
+# 4. 把 project 目录的所有者改为 dev1，所属组改为 devgrp
+chown dev1:devgrp project
+chmod -R g+w project  # 给组用户添加写权限
+
+# 5. 验证：切换到 dev1，测试文件操作权限
+su - dev1
+cd project
+cat report.md  # 读权限测试
+echo "新增内容" >> report.md  # 写权限测试
+./run.sh  # 执行权限测试（若脚本有内容则正常运行）</code></pre>
+    </div>
+
+    <h2 id="四、实验报告要求">四、实验报告要求</h2>
+    <ul>
+      <li>记录各命令执行结果截图（重点展示 ls -l 的权限变更过程）</li>
+      <li>解释 chmod 字母法与数字法的对应关系，举例说明 755、644 权限含义</li>
+      <li>说明 chown 与 chgrp 的区别，以及 -R 参数的作用场景</li>
