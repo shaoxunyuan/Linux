@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程：文件压缩和解压缩</title>
 
-  
+  <!-- Markdown 样式 -->
   <link rel="stylesheet" href="markdown-style.css">
 
-  
-  <link href="https:
+  <!-- Prism 代码高亮 -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
 
-  
-  <link rel="stylesheet" href="https:
+  <!-- 图标库 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 
   <style>
     .sidebar-nav {
@@ -119,7 +119,7 @@
 </head>
 <body>
 
-  
+  <!-- 左侧导航 -->
   <nav class="sidebar-nav">
     <div class="nav-title">实验目录</div>
     <ul class="nav-list">
@@ -146,7 +146,7 @@
     </ul>
   </nav>
 
-  
+  <!-- 主体内容 -->
   <article class="markdown-body">
 
     <h1 id="实验标题">Linux基础及应用教程：文件压缩和解压缩</h1>
@@ -186,7 +186,7 @@ cp file2.txt demo_dir/
 cp file3.txt demo_dir/</code></pre>
     </div>
 
-    
+    <!-- 任务1 -->
     <h3 id="任务1-zip压缩文件">任务1：zip 压缩文件</h3>
     <p>zip 可以压缩文件或目录。</p>
 
@@ -198,7 +198,7 @@ cp file3.txt demo_dir/</code></pre>
 zip -r demo.zip demo_dir/</code></pre>
     </div>
 
-    
+    <!-- 任务2 -->
     <h3 id="任务2-unzip解压文件">任务2：unzip 解压文件</h3>
 
     <div class="code-block">
@@ -209,7 +209,7 @@ zip -r demo.zip demo_dir/</code></pre>
 unzip demo.zip -d out_dir/</code></pre>
     </div>
 
-    
+    <!-- TAR -->
     <h3 id="任务3-tar打包">任务3：tar 打包文件</h3>
     <p>tar 主要负责 “打包”，而不压缩。</p>
 
@@ -225,7 +225,7 @@ unzip demo.zip -d out_dir/</code></pre>
       <pre><code class="language-bash">tar -xvf demo.tar</code></pre>
     </div>
 
-    
+    <!-- TAR.GZ -->
     <h3 id="任务5-targz压缩">任务5：tar.gz 压缩（打包 + 压缩）</h3>
 
     <div class="code-block">
@@ -240,7 +240,7 @@ unzip demo.zip -d out_dir/</code></pre>
       <pre><code class="language-bash">tar -xzvf demo.tar.gz</code></pre>
     </div>
 
-    
+    <!-- GZIP -->
     <h3 id="任务7-gzip压缩文件">任务7：gzip 压缩（单文件）</h3>
     <p>gzip 只能压缩单文件，不能压缩目录。</p>
 
@@ -259,7 +259,7 @@ gzip -c file2.txt > file2.txt.gz</code></pre>
       <pre><code class="language-bash">gunzip file1.txt.gz</code></pre>
     </div>
 
-    
+    <!-- 综合实操 -->
     <h3 id="综合实操练习">综合实操练习</h3>
     <p>将 demo_dir 压缩为 tar.gz，然后解压到 backup 目录。</p>
 
@@ -296,14 +296,14 @@ tar -xzvf demo_backup.tar.gz -C backup/</code></pre>
 
   </article>
 
-  
-  <a href="https:
+  <!-- 右下角回到主页按钮 -->
+  <a href="https://shaoxunyuan.github.io/Linux" class="back-home-fixed">回到主页</a>
 
-  
-  <script src="https:
-  <script src="https:
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
   <script>
-    
+    // 代码复制
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const code = this.nextElementSibling.querySelector('code').textContent;
@@ -314,7 +314,7 @@ tar -xzvf demo_backup.tar.gz -C backup/</code></pre>
       });
     });
 
-    
+    // 平滑跳转
     document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();

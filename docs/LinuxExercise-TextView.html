@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程：文本查看</title>
-  
+  <!-- 原有markdown样式 -->
   <link rel="stylesheet" href="markdown-style.css">
-  
-  <link href="https:
-  
-  <link rel="stylesheet" href="https:
-  
+  <!-- 1. 代码高亮库Prism样式（默认主题） -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  <!-- 2. 图标库（复制按钮图标） -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  <!-- 3. 导航栏与代码块自定义样式 -->
   <style>
-    
+    /* 导航栏整体样式 */
     .sidebar-nav {
       position: fixed;
       left: 0;
@@ -27,7 +27,7 @@
       z-index: 999;
     }
 
-    
+    /* 导航标题 */
     .nav-title {
       font-size: 18px;
       font-weight: bold;
@@ -37,7 +37,7 @@
       color: #333;
     }
 
-    
+    /* 导航列表 */
     .nav-list {
       list-style: none;
       padding: 0;
@@ -53,12 +53,12 @@
       transition: background-color 0.2s;
     }
 
-    
+    /* 导航hover效果 */
     .nav-list li a:hover {
       background-color: #e0e0e0;
     }
 
-    
+    /* 子导航样式 */
     .sub-nav {
       list-style: none;
       padding-left: 15px;
@@ -71,7 +71,7 @@
       color: #666;
     }
 
-    
+    /* 主体内容偏移 */
     .markdown-body {
       margin-left: 240px;
       padding: 20px 40px;
@@ -79,13 +79,13 @@
       box-sizing: border-box;
     }
 
-    
+    /* 代码块容器 */
     .code-block {
       position: relative;
       margin: 15px 0;
     }
 
-    
+    /* 复制按钮 */
     .copy-btn {
       position: absolute;
       top: 10px;
@@ -107,7 +107,7 @@
       border-color: #bbb;
     }
 
-    
+    /* 复制成功提示 */
     .copy-btn.success {
       background-color: #4CAF50;
       color: white;
@@ -119,7 +119,7 @@
       font-family: sans-serif;
     }
 
-    
+    /* 回到首页按钮样式调整（避免被导航遮挡） */
     .back-to-home {
       margin-left: 240px;
       margin-left: 240px;
@@ -127,7 +127,7 @@
       display: inline-block;
     }
 
-    
+    /* 响应式适配（小屏幕隐藏导航） */
     @media (max-width: 768px) {
       .sidebar-nav {
         display: none;
@@ -141,11 +141,11 @@
       }
     }
 
-    
+    /* 版权信息样式 */
     .copyright {
         margin-top: 40px;
         padding-top: 20px;
-        text-align: right; 
+        text-align: right; /* 改为右对齐 */
         color: #6c757d;
         font-size: 0.95rem;
         border-top: 1px solid #e9ecef;
@@ -153,7 +153,7 @@
   </style>
 </head>
 <body>
-  
+  <!-- 左侧导航栏 -->
   <nav class="sidebar-nav">
     <div class="nav-title">实验目录</div>
     <ul class="nav-list">
@@ -176,7 +176,7 @@
     </ul>
   </nav>
 
-  
+  <!-- 文章主体内容 -->
   <article class="markdown-body">
     <h1 class="atx" id="Linux基础及应用教程：文本查看">Linux基础及应用教程：文本查看</h1>
     <h2 class="atx" id="一、实验目标">一、实验目标</h2>
@@ -484,25 +484,25 @@ tail -n 3 ~/text_lab/mixed_text.txt</code></pre>
     </ul>
   </article>
 
-  
+  <!-- 回到首页按钮 -->
   <a href="/shaoxunyuan.github.io/Linux/" class="back-to-home">回到首页</a>
 
-  
-  <script src="https:
-  <script src="https:
+  <!-- 代码高亮与复制功能脚本 -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
   <script>
-    
+    // 代码复制功能
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        
+        // 获取当前代码块内容
         const codeElement = this.nextElementSibling.querySelector('code');
         const codeContent = codeElement.textContent;
         
-        
+        // 复制到剪贴板
         navigator.clipboard.writeText(codeContent).then(() => {
-          
+          // 显示成功状态
           this.classList.add('success');
-          
+          // 2秒后恢复原样
           setTimeout(() => {
             this.classList.remove('success');
           }, 2000);
@@ -513,7 +513,7 @@ tail -n 3 ~/text_lab/mixed_text.txt</code></pre>
       });
     });
 
-    
+    // 导航栏锚点跳转平滑滚动（可选优化）
     document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -528,7 +528,7 @@ tail -n 3 ~/text_lab/mixed_text.txt</code></pre>
       });
     });
   </script>
-      
+      <!-- 版权信息 -->
       <div class="copyright">
         © 南京中医药大学 人工智能与信息技术学院 袁少勋
       </div>
