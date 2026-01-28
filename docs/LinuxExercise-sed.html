@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程：文本三剑客之sed</title>
 
-  <!-- 原有markdown样式（按需修改为你的路径） -->
-  <link rel="stylesheet" href="docs/markdown-style.css">
+  
+  <link rel="stylesheet" href="markdown-style.css">
 
-  <!-- 1. 代码高亮库Prism样式（默认主题） -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  
+  <link href="https:
 
-  <!-- 2. 图标库（复制按钮图标） -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="https:
 
-  <!-- 3. 导航栏与代码块自定义样式（保持与你原文件一致） -->
+  
   <style>
-    /* 导航栏整体样式 */
+    
     .sidebar-nav {
       position: fixed;
       left: 0;
@@ -31,7 +31,7 @@
       z-index: 999;
     }
 
-    /* 导航标题 */
+    
     .nav-title {
       font-size: 18px;
       font-weight: bold;
@@ -41,7 +41,7 @@
       color: #333;
     }
 
-    /* 导航列表 */
+    
     .nav-list {
       list-style: none;
       padding: 0;
@@ -57,12 +57,12 @@
       transition: background-color 0.2s;
     }
 
-    /* 导航hover效果 */
+    
     .nav-list li a:hover {
       background-color: #e0e0e0;
     }
 
-    /* 子导航样式 */
+    
     .sub-nav {
       list-style: none;
       padding-left: 15px;
@@ -75,7 +75,7 @@
       color: #666;
     }
 
-    /* 主体内容偏移 */
+    
     .markdown-body {
       margin-left: 240px;
       padding: 20px 40px;
@@ -83,13 +83,13 @@
       box-sizing: border-box;
     }
 
-    /* 代码块容器 */
+    
     .code-block {
       position: relative;
       margin: 15px 0;
     }
 
-    /* 复制按钮 */
+    
     .copy-btn {
       position: absolute;
       top: 10px;
@@ -111,7 +111,7 @@
       border-color: #bbb;
     }
 
-    /* 复制成功提示 */
+    
     .copy-btn.success {
       background-color: #4CAF50;
       color: white;
@@ -123,14 +123,14 @@
       font-family: sans-serif;
     }
 
-    /* 回到首页按钮样式调整（避免被导航遮挡） */
+    
     .back-to-home {
       margin-left: 240px;
       margin: 20px 40px;
       display: inline-block;
     }
 
-    /* 响应式适配（小屏幕隐藏导航） */
+    
     @media (max-width: 768px) {
       .sidebar-nav {
         display: none;
@@ -143,7 +143,7 @@
         margin-left: 20px;
       }
     }
-    /* 固定右下角返回主页按钮 */
+    
     .back-home-fixed {
       position: fixed;
       bottom: 25px;
@@ -162,7 +162,7 @@
   </style>
 </head>
 <body>
-  <!-- 左侧导航栏 -->
+  
   <nav class="sidebar-nav">
     <div class="nav-title">实验目录</div>
     <ul class="nav-list">
@@ -185,7 +185,7 @@
     </ul>
   </nav>
 
-  <!-- 文章主体内容 -->
+  
   <article class="markdown-body">
     <h1 class="atx" id="linux基础及应用教程：文本三剑客之sed">Linux基础及应用教程：文本三剑客之sed</h1>
 
@@ -436,11 +436,11 @@ sed '/WARN/,/ERROR/d' app.log</code></pre>
       </button>
       <pre><code class="language-bash"># 1. 使用管道只提取系统用户名前两列
 # /etc/passwd 每行格式一般为：用户名:密码占位:UID:GID:注释:家目录:Shell
-cat passwd.sample | sed 's/:.*//'
+cat passwd.sample | sed 's/:.*
 
 # 2. 显示 UID &gt;= 1000 的普通用户（结合 awk 或 grep）
 # 简单示例：先用 grep，再用 sed 清理字段
-grep ':/home/' passwd.sample | sed 's/:.*//'
+grep ':/home/' passwd.sample | sed 's/:.*
 
 # 3. 配合行号查看特定配置行
 nl -ba config.txt | sed -n '1,5p'
@@ -568,25 +568,25 @@ cat config.txt</code></pre>
     </ul>
   </article>
 
-  <!-- 回到首页按钮（按你的站点实际路径调整） -->
+  
   <a href="/shaoxunyuan.github.io/Linux/" class="back-to-home">回到首页</a>
 
-  <!-- 代码高亮与复制功能脚本 -->
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  
+  <script src="https:
+  <script src="https:
   <script>
-    // 代码复制功能
+    
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        // 获取当前代码块内容
+        
         const codeElement = this.nextElementSibling.querySelector('code');
         const codeContent = codeElement.textContent;
 
-        // 复制到剪贴板
+        
         navigator.clipboard.writeText(codeContent).then(() => {
-          // 显示成功状态
+          
           this.classList.add('success');
-          // 2秒后恢复原样
+          
           setTimeout(() => {
             this.classList.remove('success');
           }, 2000);
@@ -597,7 +597,7 @@ cat config.txt</code></pre>
       });
     });
 
-    // 导航栏锚点跳转平滑滚动
+    
     document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -614,5 +614,5 @@ cat config.txt</code></pre>
     });
   </script>
 </body>
-<a href="https://shaoxunyuan.github.io/Linux" class="back-home-fixed">回到主页</a>
+<a href="https:
 </html>

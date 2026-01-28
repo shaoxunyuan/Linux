@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程：文本三剑客之 grep</title>
 
-  <!-- Markdown 样式 -->
+  
   <link rel="stylesheet" href="docs/markdown-style.css">
 
-  <!-- Prism 代码高亮 -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  
+  <link href="https:
 
-  <!-- 图标库 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="https:
 
   <style>
     .sidebar-nav {
@@ -95,7 +95,7 @@
     .copy-btn.success { background-color: #4CAF50; color: white; border-color: #4CAF50; }
     .copy-btn.success i::after { content: " 已复制"; font-family: sans-serif; }
 
-    /* 右下角固定按钮 */
+    
     .back-home-fixed {
       position: fixed;
       bottom: 25px;
@@ -120,7 +120,7 @@
 </head>
 <body>
 
-  <!-- 左侧导航 -->
+  
   <nav class="sidebar-nav">
     <div class="nav-title">实验目录</div>
     <ul class="nav-list">
@@ -149,7 +149,7 @@
     </ul>
   </nav>
 
-  <!-- 主体内容 -->
+  
   <article class="markdown-body">
 
     <h1 id="linux基础及应用教程：文本三剑客之grep">Linux基础及应用教程：文本三剑客之 grep</h1>
@@ -213,7 +213,7 @@ blackberry
 EOF</code></pre>
     </div>
 
-    <!-- 任务1 -->
+    
     <h3 id="任务1-grep基础搜索">任务1：grep 基础搜索</h3>
     <p>最基本的查找文本中包含某字符串的行。</p>
 
@@ -223,14 +223,14 @@ EOF</code></pre>
 grep "INFO" logs.txt</code></pre>
     </div>
 
-    <!-- 任务2 -->
+    
     <h3 id="任务2-忽略大小写-i">任务2：忽略大小写 -i</h3>
     <div class="code-block">
       <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
       <pre><code class="language-bash">grep -i "hello" simple.txt</code></pre>
     </div>
 
-    <!-- 任务3 -->
+    
     <h3 id="任务3-行号统计-n-c">任务3：行号与计数（-n / -c）</h3>
     <div class="code-block">
       <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
@@ -238,21 +238,21 @@ grep "INFO" logs.txt</code></pre>
 grep -c "ERROR" logs.txt</code></pre>
     </div>
 
-    <!-- 任务4 -->
+    
     <h3 id="任务4-反向查找-v">任务4：反向查找 -v</h3>
     <div class="code-block">
       <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
       <pre><code class="language-bash">grep -v "INFO" logs.txt</code></pre>
     </div>
 
-    <!-- 任务5 -->
+    
     <h3 id="任务5-整行匹配-x">任务5：整行匹配 -x</h3>
     <div class="code-block">
       <button class="copy-btn"><i class="fa fa-clipboard"></i></button>
       <pre><code class="language-bash">grep -x "apple" data.txt</code></pre>
     </div>
 
-    <!-- 任务6 -->
+    
     <h3 id="任务6-正则表达式匹配">任务6：正则表达式匹配</h3>
     <p>使用 <code>grep -E</code> 或 <code>egrep</code> 启用扩展正则。</p>
 
@@ -275,7 +275,7 @@ grep -E "apple|banana" data.txt
 grep -E "^(ERROR|WARN)" logs.txt</code></pre>
     </div>
 
-    <!-- 任务7 -->
+    
     <h3 id="任务7-递归搜索-r">任务7：递归搜索目录 -r</h3>
 
     <div class="code-block">
@@ -287,7 +287,7 @@ cp logs.txt nested/logs/log2.txt
 grep -r "ERROR" nested/</code></pre>
     </div>
 
-    <!-- 任务8 -->
+    
     <h3 id="任务8-高亮显示color">任务8：高亮显示 --color</h3>
 
     <div class="code-block">
@@ -295,7 +295,7 @@ grep -r "ERROR" nested/</code></pre>
       <pre><code class="language-bash">grep --color=auto "ERROR" logs.txt</code></pre>
     </div>
 
-    <!-- 任务9 -->
+    
     <h3 id="任务9-结合管道使用">任务9：结合管道使用</h3>
 
     <div class="code-block">
@@ -305,7 +305,7 @@ grep "ERROR" logs.txt | grep -v "database"
 grep "ERROR" logs.txt | wc -l</code></pre>
     </div>
 
-    <!-- 任务10 -->
+    
     <h3 id="任务10-长度匹配练习">任务10：长度匹配练习</h3>
 
     <div class="code-block">
@@ -313,7 +313,7 @@ grep "ERROR" logs.txt | wc -l</code></pre>
       <pre><code class="language-bash">grep -E "^.{7,}$" data.txt</code></pre>
     </div>
 
-    <!-- 综合实操 -->
+    
     <h3 id="综合实操练习">综合实操练习</h3>
     <p>找出：所有 ERROR 且日期为 2024-01-01 且不包含 database 的日志。</p>
 
@@ -349,14 +349,14 @@ grep "ERROR" logs.txt | wc -l</code></pre>
 
   </article>
 
-  <!-- 右下角回到主页按钮 -->
-  <a href="https://shaoxunyuan.github.io/Linux" class="back-home-fixed">回到主页</a>
+  
+  <a href="https:
 
-  <!-- JS：复制代码 / 平滑跳转 -->
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  
+  <script src="https:
+  <script src="https:
   <script>
-    // 代码复制
+    
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         const code = this.nextElementSibling.querySelector('code').textContent;
@@ -367,7 +367,7 @@ grep "ERROR" logs.txt | wc -l</code></pre>
       });
     });
 
-    // 平滑导航滚动
+    
     document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();

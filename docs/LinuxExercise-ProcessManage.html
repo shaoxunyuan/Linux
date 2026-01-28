@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Linux基础及应用教程：进程管理</title>
 
-  <!-- Markdown 样式 -->
-  <link rel="stylesheet" href="docs/markdown-style.css">
+  
+  <link rel="stylesheet" href="markdown-style.css">
 
-  <!-- Prism 代码高亮 -->
-  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+  
+  <link href="https:
 
-  <!-- 图标库 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="https:
 
   <style>
     .sidebar-nav {
@@ -104,7 +104,7 @@
 </head>
 <body>
 
-  <!-- 左侧导航 -->
+  
   <nav class="sidebar-nav">
     <div class="nav-title">实验目录</div>
     <ul class="nav-list">
@@ -130,7 +130,7 @@
     </ul>
   </nav>
 
-  <!-- 主体内容 -->
+  
   <article class="markdown-body">
 
     <h1 id="实验标题">Linux基础及应用教程：进程管理</h1>
@@ -163,7 +163,7 @@
 sleep 500 &</code></pre>
     </div>
 
-    <!-- ps -->
+    
     <h3 id="任务1-查看进程ps">任务1：查看进程 ps</h3>
 
     <div class="code-block">
@@ -176,7 +176,7 @@ ps -ef
 ps -ef | grep sleep</code></pre>
     </div>
 
-    <!-- top -->
+    
     <h3 id="任务2-实时监控top">任务2：实时监控 top</h3>
 
     <div class="code-block">
@@ -184,7 +184,7 @@ ps -ef | grep sleep</code></pre>
       <pre><code class="language-bash">top</code></pre>
     </div>
 
-    <!-- pstree -->
+    
     <h3 id="任务3-进程树pstree">任务3：进程树 pstree</h3>
 
     <div class="code-block">
@@ -194,7 +194,7 @@ pstree -p        # 显示 PID
 pstree root      # 查看 root 进程树</code></pre>
     </div>
 
-    <!-- pgrep -->
+    
     <h3 id="任务4查找进程pgrep">任务4：查找进程 pgrep</h3>
 
     <div class="code-block">
@@ -203,7 +203,7 @@ pstree root      # 查看 root 进程树</code></pre>
 pgrep -l ssh     # 显示名称</code></pre>
     </div>
 
-    <!-- kill -->
+    
     <h3 id="任务5终止进程kill-pkill">任务5：终止进程 kill / pkill</h3>
 
     <div class="code-block">
@@ -218,7 +218,7 @@ kill -9 12345
 pkill sleep</code></pre>
     </div>
 
-    <!-- nice / renice -->
+    
     <h3 id="任务6优先级管理nice-renice">任务6：优先级管理 nice / renice</h3>
 
     <div class="code-block">
@@ -230,7 +230,7 @@ nice -n 10 sleep 300 &
 renice -n 5 -p 12345</code></pre>
     </div>
 
-    <!-- jobs -->
+    
     <h3 id="任务7后台任务jobsfgbg">任务7：后台任务 jobs / fg / bg</h3>
 
     <div class="code-block">
@@ -248,7 +248,7 @@ bg
 fg</code></pre>
     </div>
 
-    <!-- 综合 -->
+    
     <h3 id="综合实操练习">综合实操练习</h3>
     <p>任务：找到所有占用 CPU 前五的进程，并结束其中为 sleep 的进程。</p>
 
@@ -284,12 +284,12 @@ pgrep sleep | xargs kill</code></pre>
 
   </article>
 
-  <!-- 右下角返回 -->
-  <a href="https://shaoxunyuan.github.io/Linux" class="back-home-fixed">回到主页</a>
+  
+  <a href="https:
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  
+  <script src="https:
+  <script src="https:
   <script>
     document.querySelectorAll('.copy-btn').forEach(btn => {
       btn.addEventListener('click', function() {
